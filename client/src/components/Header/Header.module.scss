@@ -1,0 +1,37 @@
+.logo {
+  color: white;
+
+  &:hover {
+    color: inherit;
+  }
+}
+
+.nav {
+  position: relative;
+  padding: 5px 0;
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    border-bottom: 2px solid;
+    width: 0;
+    transition: all 400ms ease;
+  }
+
+  &:hover {
+    &:after {
+      left: 0;
+      width: 100%;
+    }
+  }
+}
+
+.nav_active {
+  border-bottom: 2px solid;
+
+  &:after {
+    content: none;
+  }
+}

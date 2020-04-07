@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Registration from './Registration/Registration';
+import Header from '../components/Header/Header';
 
 export const routes = {
   home: '/',
@@ -12,6 +13,7 @@ export const routes = {
 const Router = (props) => {
   return (
     <BrowserRouter>
+      <Header />
       <Switch>
         <Route path={routes.registration} component={Registration} />
       </Switch>
