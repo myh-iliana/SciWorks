@@ -1,9 +1,10 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
-import Header from '../../components/Header/Header';
 import { routes } from '../routes';
-import Register from '../Register/Register';
+import Header from '../../components/Header/Header';
+import Register from './Register/Register';
+import Login from './Login/Login';
 
 const Auth = () => {
   return (
@@ -12,6 +13,7 @@ const Auth = () => {
 
       <Switch>
         <Route path={routes.register} component={Register} />
+        <Route path={routes.login} component={Login} />
       </Switch>
     </div>
   );

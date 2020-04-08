@@ -24,9 +24,9 @@ const Header = () => {
             </NavLink>
           </Menu.Item>
           <Menu.Item>
-            <Link to={routes.login}>
-              <Button color="olive">Sign In</Button>
-            </Link>
+            <NavLink to={routes.login} activeClassName={s.nav_active} className={s.nav}>
+              Sign In
+            </NavLink>
           </Menu.Item>
         </Menu.Menu>
       </Menu>

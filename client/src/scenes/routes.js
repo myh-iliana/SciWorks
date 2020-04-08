@@ -6,7 +6,7 @@ import Auth from './Auth/Auth';
 export const routes = {
   home: '/',
   auth: '/auth',
-  registration: '/auth/register',
+  register: '/auth/register',
   login: '/auth/login',
 };
 
