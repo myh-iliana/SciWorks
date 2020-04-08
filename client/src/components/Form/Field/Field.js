@@ -20,8 +20,8 @@ const Field = ({ children, label, required = false, type = 'text', ...props }) =
       <Input icon>
         <input type={fieldType} {...props} {...field} value={meta.value} />
         {isPassword && (
-          <Button icon onClick={showPassword}>
-            <Icon name={show ? 'eye slash' : 'eye'} />
+          <Button type='button' icon onClick={showPassword}>
+            <Icon name={show ? 'eye' : 'eye slash'} />
           </Button>
         )}
       </Input>

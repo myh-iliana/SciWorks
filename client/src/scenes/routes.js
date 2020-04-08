@@ -1,21 +1,20 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import Registration from './Registration/Registration';
-import Header from '../components/Header/Header';
+import Auth from './Auth/Auth';
 
 export const routes = {
   home: '/',
-  registration: '/registration',
-  login: '/login',
+  auth: '/auth',
+  registration: '/auth/register',
+  login: '/auth/login',
 };
 
-const Router = (props) => {
+const Router = () => {
   return (
     <BrowserRouter>
-      <Header />
       <Switch>
-        <Route path={routes.registration} component={Registration} />
+        <Route path={routes.auth} component={Auth} />
       </Switch>
     </BrowserRouter>
   );
