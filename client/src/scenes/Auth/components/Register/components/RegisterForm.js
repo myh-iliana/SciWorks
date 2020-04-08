@@ -41,7 +41,7 @@ const RegisterForm = () => {
         const isMatch = values.pass === values.passConfirm;
 
         return (
-          <Form noValidate onSubmit={handleSubmit}>
+          <Form noValidate onSubmit={handleSubmit} className='attached segment'>
             <Field label="Full name" name="fullName" placeholder="Bruce Wayne" />
             <Field label="Username" name="username" placeholder="Batman" required />
             <Field label="Email" name="email" type="email" placeholder="something@example.com" required />

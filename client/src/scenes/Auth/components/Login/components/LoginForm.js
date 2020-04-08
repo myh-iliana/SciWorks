@@ -29,7 +29,7 @@ const LoginForm = () => {
     <Formik {...formikProps}>
       {({ handleSubmit }) => {
         return (
-          <Form noValidate onSubmit={handleSubmit}>
+          <Form noValidate onSubmit={handleSubmit} className='attached segment'>
             <Field label="Username" name="username" placeholder="Batman" />
             <Field label="Password" name="pass" type="password" placeholder="Password" />
 
