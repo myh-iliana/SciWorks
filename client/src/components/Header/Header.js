@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Container, Button, Menu, Header as SemanticHeader } from 'semantic-ui-react';
+import { Container, Menu, Header as SemanticHeader } from 'semantic-ui-react';
 
 import s from './Header.module.scss';
 import { routes } from '../../scenes/routes';
+import { colors } from '../App/App';
 
 const Header = () => {
   return (
     <Container fluid>
-      <Menu size="huge" color="purple" inverted attached>
+      <Menu size="huge" color={colors.main} inverted attached>
         <Menu.Item>
           <SemanticHeader as="h1">
             <Link to={routes.home} className={s.logo}>

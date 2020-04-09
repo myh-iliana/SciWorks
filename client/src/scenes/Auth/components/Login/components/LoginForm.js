@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import Field from 'src/components/Form/Field/Field';
+import { colors } from 'src/components/App/App';
 
 const LoginForm = () => {
   const formikProps = {
@@ -29,11 +30,11 @@ const LoginForm = () => {
     <Formik {...formikProps}>
       {({ handleSubmit }) => {
         return (
-          <Form noValidate onSubmit={handleSubmit} className='attached segment'>
+          <Form noValidate onSubmit={handleSubmit} className='attached grey segment'>
             <Field label="Username" name="username" placeholder="Batman" />
             <Field label="Password" name="pass" type="password" placeholder="Password" />
 
-            <Button type="submit" size="large" color="purple">
+            <Button type="submit" size="large" color={colors.main}>
               Login
             </Button>
           </Form>

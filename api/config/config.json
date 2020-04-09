@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "root",
+    "password": "aezakmi123",
+    "database": "sci_works_dev",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  },
+  "test": {
+    "username": "root",
+    "password": "aezakmi123",
+    "database": "sci_works_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "root",
+    "password": "aezakmi123",
+    "database": "sci_works",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  }
+}

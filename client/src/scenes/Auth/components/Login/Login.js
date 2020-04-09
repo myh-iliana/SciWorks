@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Header, Icon, Message, Segment } from 'semantic-ui-react';
+import { Container, Icon, Message } from 'semantic-ui-react';
 
 import s from './Login.module.scss';
 import LoginForm from './components/LoginForm';
