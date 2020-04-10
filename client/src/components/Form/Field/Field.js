@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Form, Input, Icon, Button, Checkbox, Label } from 'semantic-ui-react';
+import { Form, Input, Icon, Button, Checkbox } from 'semantic-ui-react';
 import { useField } from 'formik';
 
 import Error from '../Error/Error';
@@ -35,9 +35,7 @@ const Field = ({ children, label, required = false, type = 'text', ...props }) =
 
       {children}
       {meta.touched && meta.error && meta.error !== 'Please enter a value' && (
-        <Label basic color="red" pointing>
-          {meta.error}
-        </Label>
+        <Error>{meta.error}</Error>
       )}
     </Form.Field>
   );

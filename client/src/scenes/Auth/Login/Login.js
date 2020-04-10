@@ -4,7 +4,7 @@ import { Container, Icon, Message } from 'semantic-ui-react';
 import s from './Login.module.scss';
 import LoginForm from './components/LoginForm';
 import { Link } from 'react-router-dom';
-import { routes } from '../../../routes';
+import { routes } from '../../routes';
 
 const Login = () => {
   return (

@@ -1,9 +1,12 @@
 import React from 'react';
-
-import s from './Error.module.scss';
+import { Label } from 'semantic-ui-react';
 
 const Error = ({ children }) => {
-  return <div className={s.error}>{children}</div>;
+  return (
+    <Label basic color="red" pointing>
+      {children}
+    </Label>
+  );
 };
 
 export default Error;

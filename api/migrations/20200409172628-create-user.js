@@ -20,6 +20,9 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
+      isTeacher: {
+        type: Sequelize.BOOLEAN
+      },
       isAdmin: {
         type: Sequelize.BOOLEAN
       },

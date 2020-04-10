@@ -3,8 +3,8 @@ import { Switch, Route } from 'react-router-dom';
 
 import { routes } from '../routes';
 import Header from '../../components/Header/Header';
-import Register from './components/Register/Register';
-import Login from './components/Login/Login';
+import Register from './Register/Register';
+import Login from './Login/Login';
 
 const Auth = () => {
   return (
