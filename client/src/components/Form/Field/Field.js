@@ -15,25 +15,29 @@ const Field = ({ children, label, required = false, type = 'text', ...props }) =
 
   const showPassword = () => setShow(!show);
 
+  const checkbox = (
+    <Checkbox label={label} type="checkbox" checked={meta.value} {...props} {...field} />
+  );
+
+  const others = (
+    <Fragment>
+      <label>{label}</label>
+      <Input icon>
+        <input type={fieldType} {...props} {...field} value={meta.value} />
+        {isPassword && (
+          <Button type="button" icon onClick={showPassword}>
+            <Icon name={show ? 'eye' : 'eye slash'} />
+          </Button>
+        )}
+      </Input>
+    </Fragment>
+  );
+
   return (
     <Form.Field required={required} error={meta.touched && meta.error && true}>
-      {isCheckbox ? (
-        <Checkbox label={label} type={type} checked={meta.value} {...props} {...field} />
-      ) : (
-        <Fragment>
-          <label>{label}</label>
-          <Input icon>
-            <input type={fieldType} {...props} {...field} value={meta.value} />
-            {isPassword && (
-              <Button type="button" icon onClick={showPassword}>
-                <Icon name={show ? 'eye' : 'eye slash'} />
-              </Button>
-            )}
-          </Input>
-        </Fragment>
-      )}
+      {isCheckbox && checkbox}
+      {!isCheckbox && others}
 
-      {children}
       {meta.touched && meta.error && meta.error !== 'Please enter a value' && (
         <Error>{meta.error}</Error>
       )}
