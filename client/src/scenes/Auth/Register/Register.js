@@ -2,14 +2,17 @@ import React from 'react';
 import { Container, Icon, Message } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-import { Cathedra } from 'src/api';
+import * as Api from 'src/api';
 import RegisterForm from './components/RegisterForm';
 import { routes } from '../../routes';
 import s from './Register.module.scss';
 
 const Register = () => {
-  const onSubmit = async ({ fullName, username, email, password, isTeacher }) => {
-    console.log('ok');
+  const onSubmit = async ({ fullName, username, email, password, passConfirm, isTeacher, cathedraId }) => {
+    const id = cathedraId[0];
+    const res = await Api.Auth.register({ fullName, username, email, password, passConfirm, isTeacher, cathedraId: id });
+
+    console.log(res.data)
   };
 
   return (

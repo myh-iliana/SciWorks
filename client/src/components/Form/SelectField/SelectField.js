@@ -4,7 +4,7 @@ import { Form } from 'semantic-ui-react';
 
 import './SelectField.scss';
 
-const SelectField = ({ setFieldValue, children, required, ...props }) => {
+const SelectField = ({ setFieldValue, children, required, name, ...props }) => {
   const [active, setActive] = useState(false);
   const [searchString, setSearchString] = useState('');
   const [selected, setSelected] = useState([]);
@@ -18,7 +18,7 @@ const SelectField = ({ setFieldValue, children, required, ...props }) => {
         placeholder="Select cathedra"
         selected={selected}
         onSelectChange={(val) => {
-          setFieldValue('cathedra', val);
+          setFieldValue(name, val);
           setSelected(val);
           setActive(false);
         }}
@@ -28,6 +28,7 @@ const SelectField = ({ setFieldValue, children, required, ...props }) => {
         style={active ? { '--display': 'block' } : { '--display': 'none' }}
         onSearchStringChange={(search) => setSearchString(search)}
         searchString={searchString}
+        name={name}
         {...props}
       >
         {children}

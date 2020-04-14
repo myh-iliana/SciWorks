@@ -1,15 +1,27 @@
-import React from 'react';
-import { Button, Dropdown, Form } from 'semantic-ui-react';
+import React, { useEffect } from 'react';
+import { Button, Form } from 'semantic-ui-react';
 import { Option } from 'semantic-react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
+import * as Api from 'src/api';
 import Field from 'src/components/Form/Field/Field';
 import Error from 'src/components/Form/Error/Error';
 import { colors } from 'src/components/App/App';
 import SelectField from '../../../../components/Form/SelectField/SelectField';
 
 const RegisterForm = ({ onSubmit }) => {
+  let options = [{ id: 0, name: 'none' }];
+
+  useEffect(() => {
+    async function get() {
+      const res = await Api.Cathedra.getAll();
+      options = res.data;
+    }
+
+    get();
+  }, []);
+
   const formikProps = {
     initialValues: {
       fullName: '',
@@ -18,12 +30,12 @@ const RegisterForm = ({ onSubmit }) => {
       password: '',
       passConfirm: '',
       isTeacher: false,
-      cathedra: [],
+      cathedraId: [],
     },
 
     validationSchema: Yup.object().shape({
       fullName: Yup.string()
-        .min(2, 'Must be at least 2 characters')
+        .min(3, 'Must be at least 3 characters')
         .max(255, 'Must be shorter than 255'),
       username: Yup.string()
         .min(4, 'Must be at least 4 characters')
@@ -34,19 +46,13 @@ const RegisterForm = ({ onSubmit }) => {
         .max(255, 'Must be shorter than 255')
         .required('Please enter a value'),
       password: Yup.string()
-        .min(5, 'Must have minimum 5 characters')
+        .min(6, 'Must have minimum 6 characters')
         .required('Please enter a value'),
-      passConfirm: Yup.string().min(5, null).required('Please enter a value'),
+      passConfirm: Yup.string().required('Please enter a value'),
     }),
 
     onSubmit,
   };
-
-  const options = [
-    { name: 'Itan', id: '1' },
-    { name: 'Nina', id: '2' },
-    { name: 'Tan', id: '3' },
-  ];
 
   return (
     <Formik {...formikProps}>
@@ -81,7 +87,7 @@ const RegisterForm = ({ onSubmit }) => {
               {!isMatch && <Error>Passwords don't match</Error>}
             </Field>
             <Field type="checkbox" label="I am professor" id="isTeacher" name="isTeacher" />
-            <SelectField disabled={!values.isTeacher} name="cathedra" setFieldValue={setFieldValue}>
+            <SelectField disabled={!values.isTeacher} name="cathedraId" setFieldValue={setFieldValue}>
               {options.map(({ name, id }) => (
                 <Option key={id} value={id}>
                   {name}

@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
   Cathedra.associate = function(models) {
-    // associations can be defined here
+    Cathedra.hasMany(models.User, { as: 'workers' });
   };
   return Cathedra;
 };
