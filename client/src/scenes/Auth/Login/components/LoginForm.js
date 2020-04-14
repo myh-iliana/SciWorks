@@ -6,24 +6,21 @@ import * as Yup from 'yup';
 import Field from 'src/components/Form/Field/Field';
 import { colors } from 'src/components/App/App';
 
-const LoginForm = () => {
+const LoginForm = ({ onSubmit }) => {
   const formikProps = {
     initialValues: {
       username: '',
-      pass: '',
+      password: '',
     },
 
     validationSchema: Yup.object().shape({
       username: Yup.string()
-        .min(1, null)
         .max(255, 'Must be shorter than 255')
         .required(' '),
-      pass: Yup.string().min(5, null).required(' '),
+      password: Yup.string().required(' '),
     }),
 
-    onSubmit: () => {
-      setTimeout(() => console.log('submitted'), 2000);
-    },
+    onSubmit,
   };
 
   return (
@@ -32,7 +29,7 @@ const LoginForm = () => {
         return (
           <Form noValidate onSubmit={handleSubmit} className='attached grey segment'>
             <Field label="Username" name="username" placeholder="Batman" />
-            <Field label="Password" name="pass" type="password" placeholder="Password" />
+            <Field label="Password" name="password" type="password" placeholder="Password" />
 
             <Button type="submit" size="large" color={colors.main}>
               Login

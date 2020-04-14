@@ -1,3 +1,4 @@
+require('dotenv').config();
 let createError = require('http-errors');
 let express = require('express');
 let path = require('path');
@@ -8,6 +9,7 @@ let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
 let cathedrasRouter = require('./routes/cathedras');
 let registerRouter = require('./routes/register');
+let loginRouter = require('./routes/login');
 
 let app = express();
 
@@ -25,6 +27,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/cathedras', cathedrasRouter);
 app.use('/auth', registerRouter);
+app.use('/auth', loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

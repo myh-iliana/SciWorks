@@ -1,18 +1,20 @@
 import React from 'react';
 import { Container, Icon, Message } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { observer } from 'mobx-react';
 
 import * as Api from 'src/api';
 import RegisterForm from './components/RegisterForm';
 import { routes } from '../../routes';
+import { useStore } from '../../../stores/createStore';
 import s from './Register.module.scss';
 
 const Register = () => {
+  const store = useStore();
+
   const onSubmit = async ({ fullName, username, email, password, passConfirm, isTeacher, cathedraId }) => {
     const id = cathedraId[0];
-    const res = await Api.Auth.register({ fullName, username, email, password, passConfirm, isTeacher, cathedraId: id });
-
-    console.log(res.data)
+    await store.auth.register.run({ fullName, username, email, password, passConfirm, isTeacher, cathedraId: id });
   };
 
   return (
@@ -33,4 +35,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default observer(Register);

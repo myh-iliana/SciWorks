@@ -3,23 +3,20 @@ import { Button, Form } from 'semantic-ui-react';
 import { Option } from 'semantic-react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { observer } from 'mobx-react';
 
-import * as Api from 'src/api';
 import Field from 'src/components/Form/Field/Field';
 import Error from 'src/components/Form/Error/Error';
 import { colors } from 'src/components/App/App';
 import SelectField from '../../../../components/Form/SelectField/SelectField';
+import { useStore } from '../../../../stores/createStore';
 
 const RegisterForm = ({ onSubmit }) => {
-  let options = [{ id: 0, name: 'none' }];
+  const store = useStore();
+  const { items } = store.cathedras;
 
   useEffect(() => {
-    async function get() {
-      const res = await Api.Cathedra.getAll();
-      options = res.data;
-    }
-
-    get();
+   store.cathedras.fetchAll.run();
   }, []);
 
   const formikProps = {
@@ -88,7 +85,7 @@ const RegisterForm = ({ onSubmit }) => {
             </Field>
             <Field type="checkbox" label="I am professor" id="isTeacher" name="isTeacher" />
             <SelectField disabled={!values.isTeacher} name="cathedraId" setFieldValue={setFieldValue}>
-              {options.map(({ name, id }) => (
+              {items.map(({ name, id }) => (
                 <Option key={id} value={id}>
                   {name}
                 </Option>
@@ -105,4 +102,4 @@ const RegisterForm = ({ onSubmit }) => {
   );
 };
 
-export default RegisterForm;
+export default observer(RegisterForm);

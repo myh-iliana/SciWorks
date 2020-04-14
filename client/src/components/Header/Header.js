@@ -20,7 +20,7 @@ const Header = () => {
 
         <Menu.Menu position="right">
           <Menu.Item>
-            <NavLink exact to={routes.home} activeClassName={s.nav_active} className={s.nav}>
+            <NavLink exact to={routes.profile} activeClassName={s.nav_active} className={s.nav}>
               Profile
             </NavLink>
           </Menu.Item>

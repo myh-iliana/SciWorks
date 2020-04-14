@@ -1,8 +1,14 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 import 'semantic-ui-css/semantic.min.css';
 
-import './App.module.scss';
+import { Provider, createStore } from 'src/stores/createStore';
 import Router from '../../scenes/routes';
+
+import './App.module.scss';
+
+const store = createStore();
+store.bootstrap();
 
 export const colors = {
   main: 'purple',
@@ -11,9 +17,11 @@ export const colors = {
 const App = () => {
   return (
     <div>
-      <Router />
+      <Provider value={store}>
+        <Router />
+      </Provider>
     </div>
   );
 };
 
-export default App;
+export default observer(App);
