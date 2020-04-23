@@ -10,13 +10,15 @@ import Error from 'src/components/Form/Error/Error';
 import { colors } from 'src/components/App/App';
 import SelectField from '../../../../components/Form/SelectField/SelectField';
 import { useStore } from '../../../../stores/createStore';
+import ErrorMessage from '../../../../components/Messages/ErrorMessage';
 
 const RegisterForm = ({ onSubmit }) => {
   const store = useStore();
   const { items } = store.cathedras;
+  const { isLoading, isError, errorMsg } = store.auth.register;
 
   useEffect(() => {
-   store.cathedras.fetchAll.run();
+    store.cathedras.fetchAll.run();
   }, []);
 
   const formikProps = {
@@ -57,7 +59,15 @@ const RegisterForm = ({ onSubmit }) => {
         const isMatch = values.password === values.passConfirm;
 
         return (
-          <Form noValidate onSubmit={handleSubmit} className="attached grey segment">
+          <Form
+            error={isError}
+            loading={isLoading}
+            noValidate
+            onSubmit={handleSubmit}
+            className="attached grey segment"
+          >
+            {isError && <ErrorMessage errors={errorMsg} />}
+
             <Field label="Full name" name="fullName" placeholder="Bruce Wayne" />
             <Field label="Username" name="username" placeholder="Batman" required />
             <Field
@@ -84,7 +94,11 @@ const RegisterForm = ({ onSubmit }) => {
               {!isMatch && <Error>Passwords don't match</Error>}
             </Field>
             <Field type="checkbox" label="I am professor" id="isTeacher" name="isTeacher" />
-            <SelectField disabled={!values.isTeacher} name="cathedraId" setFieldValue={setFieldValue}>
+            <SelectField
+              disabled={!values.isTeacher}
+              name="cathedraId"
+              setFieldValue={setFieldValue}
+            >
               {items.map(({ name, id }) => (
                 <Option key={id} value={id}>
                   {name}

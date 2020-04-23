@@ -8,6 +8,8 @@ module.exports = (sequelize, DataTypes) => {
     isTeacher: DataTypes.BOOLEAN,
     isAdmin: DataTypes.BOOLEAN,
     cathedraId: DataTypes.INTEGER,
+    avatar: DataTypes.STRING,
+    bio: DataTypes.STRING,
   }, {});
   User.associate = function(models) {
     User.belongsTo(models.Cathedra, { foreignKey: 'cathedraId', as: 'cathedra' });

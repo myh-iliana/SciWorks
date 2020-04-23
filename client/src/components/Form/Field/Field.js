@@ -41,6 +41,7 @@ const Field = ({ children, label, required = false, type = 'text', ...props }) =
       {meta.touched && meta.error && meta.error !== 'Please enter a value' && (
         <Error>{meta.error}</Error>
       )}
+      {}
     </Form.Field>
   );
 };

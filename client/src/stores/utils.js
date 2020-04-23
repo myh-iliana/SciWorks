@@ -1,29 +1,45 @@
 import { applySnapshot, getParent, getRoot, onSnapshot, types as t } from 'mobx-state-tree';
-import axios from 'axios';
+import { normalize } from 'normalizr';
 
 export function AsyncModel(thunk, auto = true) {
   const model = t
     .model({
       isLoading: false,
       isError: false,
-      errorMsg: t.maybeNull(t.string),
+      errorMsg: t.maybeNull(t.union(t.string, t.frozen())),
+      redirect: false,
     })
     .actions((store) => ({
       start() {
         store.isLoading = true;
         store.isError = false;
+        store.redirect = false;
         store.errorMsg = null;
       },
 
       finish() {
         store.isLoading = false;
+        store.redirect = false;
       },
 
       error(err) {
         store.isError = true;
+        store.redirect = false;
         if (err.response) {
           store.errorMsg = err.response.data.error;
         }
+      },
+
+      setRedirect(value) {
+        store.redirect = value;
+      },
+
+      merge(data, schema) {
+        const { result, entities } = normalize(data, schema);
+
+        getRoot(store).entities.merge(entities);
+
+        return result;
       },
 
       run(...args) {
@@ -60,7 +76,7 @@ export function createPersist(store) {
       KEY,
       JSON.stringify({
         auth: { isLoggedIn: snapshot.auth.isLoggedIn },
-        viewer: { user: snapshot.viewer.user }
+        viewer: { user: snapshot.viewer.user },
       }),
     );
   });
@@ -74,4 +90,24 @@ export function createPersist(store) {
   }
 
   return { rehydrate };
+}
+
+export function createCollection(ofModel, asyncModels = {}) {
+  const collection = t
+    .model('CollectionModel', {
+      collection: t.map(ofModel),
+      ...asyncModels,
+    })
+    .views((store) => ({
+      get(key) {
+        return store.collection.get(String(key));
+      },
+    }))
+    .actions((store) => ({
+      add(key, value) {
+        store.collection.set(String(key), value);
+      },
+    }));
+
+  return t.optional(collection, {});
 }

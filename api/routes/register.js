@@ -32,10 +32,10 @@ router.post('/register', [
 
   if (errors.isEmpty()) {
     User.create({ fullName, username, email, password, isTeacher, isAdmin: false, cathedraId })
-      .then(user => res.send(user))
+      .then(user => res.send({ user }))
       .catch(err => console.log('-------------------------------',err.message));
   } else {
-    res.status(422).send({ errors: errors.array() });
+    res.status(422).send({ error: errors.array() });
   }
 });
 

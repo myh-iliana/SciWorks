@@ -1,10 +1,12 @@
 import { flow, types as t } from 'mobx-state-tree';
-import axios from 'axios';
 
 import * as Api from 'src/api';
 import { AuthStore } from './auth/AuthStore';
 import { ViewerStore } from './users/ViewerStore';
 import { CathedrasStore } from './cathedras/CathedrasStore';
+import { getAccessToken, getRefreshToken } from '../api/utils';
+import { EntitiesStore } from './EntitiesStore';
+import { FilesStore } from './files/FilesStore';
 
 export const RootStore = t
   .model('RootStore', {
@@ -12,12 +14,17 @@ export const RootStore = t
 
     viewer: t.optional(ViewerStore, {}),
     cathedras: t.optional(CathedrasStore, {}),
+
+    files: t.optional(FilesStore, {}),
+
+    entities: t.optional(EntitiesStore, {}),
   })
   .actions((store) => ({
     bootstrap: flow(function* bootstrap() {
       try {
-        const token = localStorage.getItem('_token');
-        const refreshToken = localStorage.getItem('_refreshToken');
+        const token = getAccessToken();
+        const refreshToken = getRefreshToken();
+
         Api.Auth.setTokens(token, refreshToken);
 
         if (token) {
