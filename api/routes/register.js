@@ -1,27 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
+
 const User = require('../models').User;
+const validations = require('./validations');
 
 router.post('/register', [
-  body('fullName').optional().isLength({ min: 3 }).withMessage('Must be at least 3 characters'),
-  body('username')
-    .isLength({ min: 4 }).withMessage('Must be at least 4 characters')
-    .custom(value => {
+  validations.fullName,
+  validations.username(value => {
     return User.findOne({ where: { username: value } }).then(user => {
       if (user) return Promise.reject('Username already in use');
     })
   }),
-  body('email').isLength({ min: 4 })
-    .isEmail().withMessage('Must be a valid email address')
-    .custom(value => {
-    return User.findOne({ where: { email: value } }).then(user => {
+  validations.email((value) => {
+    return User.findOne({ where: { email: value } }).then((user) => {
       if (user) return Promise.reject('E-mail already in use');
-    })
+    });
   }),
-  body('password').isLength({ min: 6 }).withMessage('Must have minimum 6 characters'),
+  validations.password,
   body('passConfirm').custom((value, { req }) => {
-    console.log('===============', value, req.body);
     if (value !== req.body.password) throw new Error("Passwords don't match");
     return true;
   }),

@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     isAdmin: DataTypes.BOOLEAN,
     cathedraId: DataTypes.INTEGER,
     avatar: DataTypes.STRING,
-    bio: DataTypes.STRING,
+    bio: DataTypes.TEXT,
   }, {});
   User.associate = function(models) {
     User.belongsTo(models.Cathedra, { foreignKey: 'cathedraId', as: 'cathedra' });

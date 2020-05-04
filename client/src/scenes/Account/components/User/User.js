@@ -4,19 +4,23 @@ import { Button, Image, Segment } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
 
 import NoneImage from 'src/img/none.svg';
-import { useStore } from '../../../stores/createStore';
-import { routes } from '../../routes';
-import { useCathedrasCollection } from '../../../stores/cathedras/cathedrasCollection';
-import { apiPath, colors } from '../../../components/App/App';
+import { useStore } from '../../../../stores/createStore';
+import { routes } from '../../../routes';
+import { useCathedrasCollection } from '../../../../stores/cathedras/cathedrasCollection';
+import { apiPath, colors } from '../../../../components/App/App';
 import s from './User.module.scss';
+import EditForm from '../EditForm/EditForm';
 
 const User = () => {
   const [image, setImage] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+
   const store = useStore();
-  const { avatar, fullName, username, email, cathedraId, cathedra } = store.viewer.user;
+  const { avatar, fullName, username, email, cathedraId, cathedra, bio } = store.viewer.user;
   const collection = useCathedrasCollection();
   const pathToCathedra =
     cathedra && generatePath(routes.cathedra, { cathedraName: cathedra.name || 0 });
+
   const addImageRef = React.createRef();
 
   useEffect(() => {
@@ -27,25 +31,24 @@ const User = () => {
     store.files.upload.run(e.target.files).then(() => setImage(store.files?.items[0]?.filename));
   };
 
-  const handleCancelAvatarUpload = () => {
-    setImage(null);
-  };
-
+  const handleCancelAvatarUpload = () => setImage(null);
   const handleAvatarUpload = () => {
     store.viewer.edit.run({ avatar: apiPath + image });
     setImage(null);
   };
+  const closeEditMode = () => setEditMode(false);
+  const openEditMode = () => setEditMode(true);
 
   return (
-    <Segment color="purple" padded>
+    <Segment padded>
       <div className={s.user}>
         <div className={s.img}>
           <Image src={(image && apiPath + image) || avatar || NoneImage} fluid />
           <div>
             {!image ? (
               <Button
-                icon='add'
-                content='New avatar'
+                icon="add"
+                content="New avatar"
                 color={colors.second}
                 labelPosition="left"
                 fluid
@@ -56,7 +59,9 @@ const User = () => {
               <Button.Group fluid attached>
                 <Button onClick={handleCancelAvatarUpload}>Cancel</Button>
                 <Button.Or />
-                <Button onClick={handleAvatarUpload} positive>Save</Button>
+                <Button onClick={handleAvatarUpload} positive>
+                  Save
+                </Button>
               </Button.Group>
             )}
             <input
@@ -66,23 +71,38 @@ const User = () => {
               name="files"
               className="none"
             />
+
+            <div className={s.edit_button}>
+              <Button
+                icon="edit"
+                content="Edit profile"
+                color={colors.neutral}
+                labelPosition="left"
+                onClick={openEditMode}
+                fluid
+                attached
+              />
+            </div>
           </div>
         </div>
         <div className={s.user__info}>
-          <div className={s.left}>
-            <h1>{fullName}</h1>
-            <h4>{username}</h4>
-            <div>
-              <a href={`mailto: ${email}`}>{email}</a>
-            </div>
-          </div>
-          <div className={s.right}>
-            {cathedra && (
-              <Link to={pathToCathedra} className={s.link}>
-                {cathedra.name}
-              </Link>
-            )}
-          </div>
+          {!editMode && (
+            <React.Fragment>
+              <h1>{fullName}</h1>
+              <h4>{username}</h4>
+              <div>
+                <a href={`mailto: ${email}`}>{email}</a>
+              </div>
+              <p className={s.bio}>{bio}</p>
+              {cathedra && (
+                <Link to={pathToCathedra} className={s.link}>
+                  {cathedra.name}
+                </Link>
+              )}
+            </React.Fragment>
+          )}
+
+          {editMode && <EditForm user={store.viewer.user} cancelEdit={closeEditMode} />}
         </div>
       </div>
     </Segment>

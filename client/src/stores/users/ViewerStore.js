@@ -23,5 +23,6 @@ function edit(data) {
     const res = await Api.Users.edit(data);
 
     parent.setViewer(res.data);
+    flow.setRedirect(true);
   };
 }

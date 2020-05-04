@@ -12,6 +12,7 @@ export const UserModel = t.model('UserModel', {
   createdAt: t.string,
   updatedAt: t.string,
   avatar: t.maybeNull(t.string),
+  bio: t.maybeNull(t.string),
 
   cathedra: t.maybeNull(
     t.reference(CathedraModel, {

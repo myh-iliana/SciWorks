@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Form, Input, Icon, Button, Checkbox } from 'semantic-ui-react';
+import { Form, Input, Icon, Button, Checkbox, TextArea } from 'semantic-ui-react';
 import { useField } from 'formik';
 
 import Error from '../Error/Error';
@@ -10,6 +10,7 @@ const Field = ({ children, label, required = false, type = 'text', ...props }) =
 
   const isPassword = type === 'password';
   const isCheckbox = type === 'checkbox';
+  const isTextarea = type === 'textarea';
   const passwordFieldType = isPassword && show ? 'text' : 'password';
   const fieldType = isPassword ? passwordFieldType : type;
 
@@ -17,6 +18,14 @@ const Field = ({ children, label, required = false, type = 'text', ...props }) =
 
   const checkbox = (
     <Checkbox label={label} type="checkbox" checked={meta.value} {...props} {...field} />
+  );
+
+  const textarea = (
+    <TextArea
+      value={meta.value}
+      {...field}
+      {...props}
+    />
   );
 
   const others = (
@@ -36,7 +45,8 @@ const Field = ({ children, label, required = false, type = 'text', ...props }) =
   return (
     <Form.Field required={required} error={meta.touched && meta.error && true}>
       {isCheckbox && checkbox}
-      {!isCheckbox && others}
+      {isTextarea && textarea}
+      {!isCheckbox && !isTextarea && others}
 
       {meta.touched && meta.error && meta.error !== 'Please enter a value' && (
         <Error>{meta.error}</Error>

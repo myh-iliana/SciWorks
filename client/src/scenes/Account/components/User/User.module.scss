@@ -1,0 +1,59 @@
+.user {
+  display: flex;
+}
+
+.img {
+  margin-right: 2%;
+  width: 230px;
+  min-width: 160px;
+  img {
+    min-height: 180px;
+  }
+}
+
+.user__info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  h1 {
+    margin: 0;
+  }
+
+  h4 {
+    color: #c0c0c0;
+    margin: 0;
+  }
+
+  a {
+    color: inherit;
+
+    &:hover {
+      color: #4183c4;
+    }
+  }
+
+    .link {
+      position: absolute;
+      font-size: 14px;
+      top: 0;
+      right: 0;
+      color: #004cf3;
+
+      &:hover {
+        color: #171ad7;
+      }
+    }
+
+
+}
+
+.bio {
+  margin-top: 10px;
+  color: #a5a8a5;
+}
+
+.edit_button {
+  margin-top: 10px;
+}

@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 
 import s from './Account.module.scss';
 import { useStore } from '../../stores/createStore';
-import User from './components/User';
+import User from './components/User/User';
 import { Container } from 'semantic-ui-react';
 
 const Account = () => {

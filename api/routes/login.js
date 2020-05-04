@@ -14,7 +14,7 @@ router.post('/login', function (req, res, next) {
     }
 
     const { password, ...user } = foundUser.get();
-    const payload = { name: user.username, admin: user.isAdmin };
+    const payload = { id: user.id, admin: user.isAdmin };
 
     const accessToken = generateAccessToken(payload);
     const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET);

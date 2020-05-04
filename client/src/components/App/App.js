@@ -9,7 +9,8 @@ import './App.scss';
 
 export const colors = {
   main: 'purple',
-  second: 'yellow'
+  second: 'yellow',
+  neutral: 'standard',
 };
 
 export const apiPath = 'http://localhost:3001/';
