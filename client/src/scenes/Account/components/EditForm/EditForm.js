@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Form, TextArea } from 'semantic-ui-react';
+import { Button, Form } from 'semantic-ui-react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { observer } from 'mobx-react';
@@ -8,16 +8,21 @@ import { observer } from 'mobx-react';
 import Field from '../../../../components/Form/Field/Field';
 import { useStore } from '../../../../stores/createStore';
 import ErrorMessage from '../../../../components/Messages/ErrorMessage';
+import SelectField from '../../../../components/Form/SelectField/SelectField';
+import { Option } from 'semantic-react';
+import CathedrasSelect from '../../../../components/Form/CathedrasSelect/CathedrasSelect';
 
 // import s from './EditForm.module.scss';
 
 const EditForm = ({ user, cancelEdit }) => {
   const history = useHistory();
   const store = useStore();
+  const { items } = store.cathedras;
   const { fullName, username, email, isTeacher, cathedraId, id, bio } = user;
   const { isLoading, isError, errorMsg, redirect } = store.viewer.edit;
 
   const onSubmit = async (data) => {
+    console.log(data)
     await store.viewer.edit.run(data);
   };
 
@@ -29,6 +34,8 @@ const EditForm = ({ user, cancelEdit }) => {
       fullName,
       username,
       email,
+      isTeacher,
+      cathedraId,
       bio,
       // ---
 
@@ -50,6 +57,12 @@ const EditForm = ({ user, cancelEdit }) => {
         .max(255, 'Must be shorter than 255')
         .required('Please enter a value'),
       bio: Yup.string().nullable(),
+      isTeacher: Yup.boolean(),
+      cathedraId: Yup.number().when('isTeacher', {
+        is: true,
+        then: Yup.number().required('Please select something'),
+        otherwise: Yup.number().nullable()
+      })
     }),
 
     onSubmit,
@@ -64,7 +77,7 @@ const EditForm = ({ user, cancelEdit }) => {
 
   return (
     <Formik {...formikProps}>
-      {({ handleSubmit, handleChange, handleBlur, values }) => {
+      {({ handleSubmit, setFieldValue, values }) => {
         return (
           <Form noValidate onSubmit={handleSubmit} error={isError} loading={isLoading}>
             {isError && <ErrorMessage errors={errorMsg} />}
@@ -77,6 +90,13 @@ const EditForm = ({ user, cancelEdit }) => {
               type="email"
               placeholder="something@example.com"
               required
+            />
+
+            <CathedrasSelect
+              isTeacher={values.isTeacher}
+              setFieldValue={setFieldValue}
+              defaultValue={[cathedraId]}
+              items={items}
             />
 
             <Field

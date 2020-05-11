@@ -25,6 +25,7 @@ const User = () => {
 
   useEffect(() => {
     collection.getById.run(cathedraId);
+    store.cathedras.fetchAll.run();
   }, [cathedraId]);
 
   const handleFileChange = (e) => {
@@ -33,7 +34,7 @@ const User = () => {
 
   const handleCancelAvatarUpload = () => setImage(null);
   const handleAvatarUpload = () => {
-    store.viewer.edit.run({ avatar: apiPath + image });
+    store.viewer.changeAvatar.run({ avatar: apiPath + image });
     setImage(null);
   };
   const closeEditMode = () => setEditMode(false);

@@ -107,6 +107,10 @@ export const Users = {
   edit(data) {
     return axios.put('/api/users/account', data);
   },
+
+  changeAvatar(avatar) {
+    return axios.put('/api/users/account/avatar', avatar);
+  },
 };
 
 export const Files = {

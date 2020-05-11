@@ -11,6 +11,7 @@ export const ViewerStore = t
     user: t.maybe(ViewerModel),
     userModel: t.maybe(UserModel),
     edit: AsyncModel(edit),
+    changeAvatar: AsyncModel(changeAvatar),
   })
   .actions((store) => ({
     setViewer(user) {
@@ -21,6 +22,15 @@ export const ViewerStore = t
 function edit(data) {
   return async (flow, parent) => {
     const res = await Api.Users.edit(data);
+
+    parent.setViewer(res.data);
+    flow.setRedirect(true);
+  };
+}
+
+function changeAvatar(avatar) {
+  return async (flow, parent) => {
+    const res = await Api.Users.changeAvatar(avatar);
 
     parent.setViewer(res.data);
     flow.setRedirect(true);

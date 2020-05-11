@@ -13,8 +13,7 @@ const Register = () => {
   const { redirect } = store.auth.register;
 
   const onSubmit = async ({ fullName, username, email, password, passConfirm, isTeacher, cathedraId }) => {
-    const id = cathedraId[0];
-    await store.auth.register.run({ fullName, username, email, password, passConfirm, isTeacher, cathedraId: id });
+    await store.auth.register.run({ fullName, username, email, password, passConfirm, isTeacher, cathedraId });
   };
 
   if (redirect) return <Redirect to={routes.login} />;

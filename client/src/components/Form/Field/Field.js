@@ -21,11 +21,15 @@ const Field = ({ children, label, required = false, type = 'text', ...props }) =
   );
 
   const textarea = (
-    <TextArea
-      value={meta.value}
-      {...field}
-      {...props}
-    />
+    <Fragment>
+      <label>{label}</label>
+      <TextArea
+        style={{minHeight: '300px'}}
+        value={meta.value}
+        {...field}
+        {...props}
+      />
+    </Fragment>
   );
 
   const others = (

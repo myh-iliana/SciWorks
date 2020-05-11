@@ -11,6 +11,7 @@ import { colors } from 'src/components/App/App';
 import SelectField from '../../../../components/Form/SelectField/SelectField';
 import { useStore } from '../../../../stores/createStore';
 import ErrorMessage from '../../../../components/Messages/ErrorMessage';
+import CathedrasSelect from '../../../../components/Form/CathedrasSelect/CathedrasSelect';
 
 const RegisterForm = ({ onSubmit }) => {
   const store = useStore();
@@ -48,6 +49,12 @@ const RegisterForm = ({ onSubmit }) => {
         .min(6, 'Must have minimum 6 characters')
         .required('Please enter a value'),
       passConfirm: Yup.string().required('Please enter a value'),
+      isTeacher: Yup.boolean(),
+      cathedraId: Yup.number().when('isTeacher', {
+        is: true,
+        then: Yup.number().required('Please select something'),
+        otherwise: Yup.number().nullable()
+      })
     }),
 
     onSubmit,
@@ -93,18 +100,12 @@ const RegisterForm = ({ onSubmit }) => {
             >
               {!isMatch && <Error>Passwords don't match</Error>}
             </Field>
-            <Field type="checkbox" label="I am professor" id="isTeacher" name="isTeacher" />
-            <SelectField
-              disabled={!values.isTeacher}
-              name="cathedraId"
+
+            <CathedrasSelect
+              isTeacher={values.isTeacher}
               setFieldValue={setFieldValue}
-            >
-              {items.map(({ name, id }) => (
-                <Option key={id} value={id}>
-                  {name}
-                </Option>
-              ))}
-            </SelectField>
+              items={items}
+            />
 
             <Button type="submit" size="large" color={colors.main}>
               Register

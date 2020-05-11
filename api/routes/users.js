@@ -19,6 +19,32 @@ router.get('/account', authenticateToken, function (req, res, next) {
     .catch((err) => console.log('========', err));
 });
 
+router.put('/account/avatar', authenticateToken, function (req, res, next) {
+  const { avatar } = req.body;
+
+  User.update({ avatar }, {
+    where: { id: req.user.id },
+  })
+    .then((rows) => {
+      if (rows[0] > 0) {
+        return User.findOne({
+          where: { id: req.user.id },
+        });
+      }
+
+      return res.status(304).send({ error: 'Not edited' });
+    })
+    .then(user => {
+      if (user) {
+        const { password, ...rest } = user.get();
+        return res.send(rest);
+      }
+
+      return res.status(404).send({ error: 'User not found' });
+    })
+    .catch((err) => console.log(err));
+});
+
 // PUT edit user
 router.put('/account', [
   validations.fullName,
