@@ -4,15 +4,12 @@ import { Button, Form } from 'semantic-ui-react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { observer } from 'mobx-react';
+import PropTypes from 'prop-types';
 
 import Field from '../../../../components/Form/Field/Field';
 import { useStore } from '../../../../stores/createStore';
 import ErrorMessage from '../../../../components/Messages/ErrorMessage';
-import SelectField from '../../../../components/Form/SelectField/SelectField';
-import { Option } from 'semantic-react';
 import CathedrasSelect from '../../../../components/Form/CathedrasSelect/CathedrasSelect';
-
-// import s from './EditForm.module.scss';
 
 const EditForm = ({ user, cancelEdit }) => {
   const history = useHistory();
@@ -22,7 +19,6 @@ const EditForm = ({ user, cancelEdit }) => {
   const { isLoading, isError, errorMsg, redirect } = store.viewer.edit;
 
   const onSubmit = async (data) => {
-    console.log(data)
     await store.viewer.edit.run(data);
   };
 
@@ -118,6 +114,11 @@ const EditForm = ({ user, cancelEdit }) => {
       }}
     </Formik>
   );
+};
+
+EditForm.propTypes = {
+  user: PropTypes.object.isRequired,
+  cancelEdit: PropTypes.func.isRequired,
 };
 
 export default observer(EditForm);

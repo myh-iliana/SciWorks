@@ -1,14 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import s from './Avatar.module.scss';
 import { Icon, Image } from 'semantic-ui-react';
 
-const Avatar = ({ src  }) => {
+const Avatar = ({ src }) => {
   return (
     <div>
       {src ? <Image avatar src={src} /> : <Icon size='large' name="user circle" />}
     </div>
   );
+};
+
+Avatar.propTypes = {
+  src: PropTypes.string.isRequired,
 };
 
 export default Avatar;

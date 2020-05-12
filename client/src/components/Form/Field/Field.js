@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { Form, Input, Icon, Button, Checkbox, TextArea } from 'semantic-ui-react';
 import { useField } from 'formik';
+import PropTypes from 'prop-types';
 
 import Error from '../Error/Error';
 
@@ -58,6 +59,15 @@ const Field = ({ children, label, required = false, type = 'text', ...props }) =
       {}
     </Form.Field>
   );
+};
+
+Field.propTypes = {
+  label: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  required: PropTypes.bool,
+  type: PropTypes.string,
 };
 
 export default Field;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Option } from 'semantic-react';
+import PropTypes from 'prop-types';
 
 import SelectField from '../SelectField/SelectField';
 import Field from '../Field/Field';
@@ -25,6 +26,12 @@ const CathedrasSelect = ({ items, isTeacher = false, setFieldValue, ...props }) 
       </SelectField>
     </React.Fragment>
   );
+};
+
+CathedrasSelect.propTypes = {
+  items: PropTypes.array.isRequired,
+  isTeacher: PropTypes.bool,
+  setFieldValue: PropTypes.func.isRequired,
 };
 
 export default CathedrasSelect;

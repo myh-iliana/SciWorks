@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import { Button, Form, Message } from 'semantic-ui-react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import PropTypes from 'prop-types';
 
 import Field from 'src/components/Form/Field/Field';
 import { colors } from 'src/components/App/App';
@@ -50,6 +51,10 @@ const LoginForm = ({ onSubmit }) => {
       }}
     </Formik>
   );
+};
+
+LoginForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default observer(LoginForm);

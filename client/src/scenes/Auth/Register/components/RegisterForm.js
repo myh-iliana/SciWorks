@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
 import { Button, Form } from 'semantic-ui-react';
-import { Option } from 'semantic-react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { observer } from 'mobx-react';
+import PropTypes from 'prop-types';
 
 import Field from 'src/components/Form/Field/Field';
 import Error from 'src/components/Form/Error/Error';
 import { colors } from 'src/components/App/App';
-import SelectField from '../../../../components/Form/SelectField/SelectField';
 import { useStore } from '../../../../stores/createStore';
 import ErrorMessage from '../../../../components/Messages/ErrorMessage';
 import CathedrasSelect from '../../../../components/Form/CathedrasSelect/CathedrasSelect';
@@ -115,6 +114,10 @@ const RegisterForm = ({ onSubmit }) => {
       }}
     </Formik>
   );
+};
+
+RegisterForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default observer(RegisterForm);

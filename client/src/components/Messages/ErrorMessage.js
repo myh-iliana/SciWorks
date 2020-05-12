@@ -1,5 +1,6 @@
 import React from 'react';
 import { Message } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
 const ErrorMessage = ({ errors, header = "Something went wrong", ...props }) => {
   return (
@@ -15,6 +16,11 @@ const ErrorMessage = ({ errors, header = "Something went wrong", ...props }) => 
       {...props}
     />
   );
+};
+
+ErrorMessage.propTypes = {
+  errors: PropTypes.array.isRequired,
+  header: PropTypes.string,
 };
 
 export default ErrorMessage;

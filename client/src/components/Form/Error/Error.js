@@ -1,5 +1,6 @@
 import React from 'react';
 import { Label } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
 const Error = ({ children }) => {
   return (
@@ -7,6 +8,10 @@ const Error = ({ children }) => {
       {children}
     </Label>
   );
+};
+
+Error.propTypes = {
+  children: PropTypes.node,
 };
 
 export default Error;

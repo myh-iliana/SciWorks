@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Select } from 'semantic-react';
 import { Form } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
 import './SelectField.scss';
 
 const SelectField = ({
   setFieldValue,
   children,
-  required,
+  required = false,
   name,
   label,
   defaultValue,
@@ -44,6 +45,15 @@ const SelectField = ({
       </Select>
     </Form.Field>
   );
+};
+
+SelectField.propTypes = {
+  setFieldValue: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+  required: PropTypes.bool,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.node,
+  defaultValue: PropTypes.array,
 };
 
 export default SelectField;
