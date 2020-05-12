@@ -19,6 +19,7 @@ router.get('/account', authenticateToken, function (req, res, next) {
     .catch((err) => console.log('========', err));
 });
 
+// change avatar
 router.put('/account/avatar', authenticateToken, function (req, res, next) {
   const { avatar } = req.body;
 
@@ -45,7 +46,7 @@ router.put('/account/avatar', authenticateToken, function (req, res, next) {
     .catch((err) => console.log(err));
 });
 
-// PUT edit user
+// edit user
 router.put('/account', [
   validations.fullName,
   validations.username((value, { req }) => {
@@ -96,12 +97,13 @@ router.put('/account', [
 });
 
 // GET user
-router.get('/:username', authenticateToken, function (req, res, next) {
+router.get('/:username', function (req, res, next) {
   User.findOne({
     where: { username: req.params.username },
   })
     .then((user) => {
       if (user === null) res.status(404).send('Cannot find user');
+
       const { password, ...rest } = user.get();
       res.send(rest);
     })

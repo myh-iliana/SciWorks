@@ -1,7 +1,7 @@
+import * as Api from 'src/api';
 import { CathedraModel } from './CathedraModel';
 import { AsyncModel, createCollection } from '../utils';
 import { useStore } from '../createStore';
-import * as Api from 'src/api';
 import { Cathedra } from '../schemas';
 
 export function useCathedrasCollection() {
@@ -24,7 +24,6 @@ function getById(id) {
       const res = await Api.Cathedra.getById(id);
 
       flow.merge(res.data, Cathedra);
-      return res.data;
     }
   };
 }

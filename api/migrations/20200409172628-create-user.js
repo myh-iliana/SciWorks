@@ -10,6 +10,7 @@ module.exports = {
       },
       fullName: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       username: {
         type: Sequelize.STRING,

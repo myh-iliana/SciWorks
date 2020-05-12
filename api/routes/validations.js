@@ -2,9 +2,8 @@ const { body } = require('express-validator');
 
 const validations = {
   fullName: body('fullName')
-    .optional()
     .isLength({ min: 3 })
-    .withMessage('Must be at least 3 characters'),
+    .withMessage('Full name must be at least 3 characters'),
   username: (custom) =>
     body('username')
       .isLength({ min: 4 })

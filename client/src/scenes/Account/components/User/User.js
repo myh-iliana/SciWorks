@@ -1,51 +1,59 @@
 import React, { useEffect, useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
-import { Button, Image, Segment } from 'semantic-ui-react';
+import { Button, Image } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
+import PropTypes from 'prop-types';
 
 import NoneImage from 'src/img/none.svg';
 import { useStore } from '../../../../stores/createStore';
 import { routes } from '../../../routes';
 import { useCathedrasCollection } from '../../../../stores/cathedras/cathedrasCollection';
 import { apiPath, colors } from '../../../../components/App/App';
-import s from './User.module.scss';
 import EditForm from '../EditForm/EditForm';
 
-const User = () => {
+import s from './User.module.scss';
+
+const User = ({ user, isViewer }) => {
   const [image, setImage] = useState(null);
   const [editMode, setEditMode] = useState(false);
-
-  const store = useStore();
-  const { avatar, fullName, username, email, cathedraId, cathedra, bio } = store.viewer.user;
-  const collection = useCathedrasCollection();
-  const pathToCathedra =
-    cathedra && generatePath(routes.cathedra, { cathedraName: cathedra.name || 0 });
-
   const addImageRef = React.createRef();
 
+  // ---- values from store
+  const store = useStore();
+  const { avatar, fullName, username, email, cathedraId, cathedra, bio } = user;
+  const cathedraCollection = useCathedrasCollection();
+  const pathToCathedra =
+    cathedra && generatePath(routes.cathedra, { cathedraName: cathedra.name || 0 });
+  // -----
+
   useEffect(() => {
-    collection.getById.run(cathedraId);
-    store.cathedras.fetchAll.run();
+    cathedraCollection.getById.run(cathedraId);
+    if (isViewer) store.cathedras.fetchAll.run();
   }, [cathedraId]);
 
   const handleFileChange = (e) => {
     store.files.upload.run(e.target.files).then(() => setImage(store.files?.items[0]?.filename));
   };
 
+  // ---- avatar upload
   const handleCancelAvatarUpload = () => setImage(null);
   const handleAvatarUpload = () => {
     store.viewer.changeAvatar.run({ avatar: apiPath + image });
     setImage(null);
   };
+  // -----
+
+  // ----- edit mode
   const closeEditMode = () => setEditMode(false);
   const openEditMode = () => setEditMode(true);
+  // -----
 
   return (
-    <Segment padded>
+    <React.Fragment>
       <div className={s.user}>
         <div className={s.img}>
           <Image src={(image && apiPath + image) || avatar || NoneImage} fluid />
-          <div>
+          { isViewer && <div>
             {!image ? (
               <Button
                 icon="add"
@@ -84,7 +92,7 @@ const User = () => {
                 attached
               />
             </div>
-          </div>
+          </div> }
         </div>
         <div className={s.user__info}>
           {!editMode && (
@@ -103,11 +111,16 @@ const User = () => {
             </React.Fragment>
           )}
 
-          {editMode && <EditForm user={store.viewer.user} cancelEdit={closeEditMode} />}
+          {editMode && isViewer && <EditForm user={store.viewer.user} cancelEdit={closeEditMode} />}
         </div>
       </div>
-    </Segment>
+    </React.Fragment>
   );
+};
+
+User.propTypes = {
+  user: PropTypes.object.isRequired,
+  isViewer: PropTypes.bool.isRequired,
 };
 
 export default observer(User);

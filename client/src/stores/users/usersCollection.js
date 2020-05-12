@@ -1,6 +1,10 @@
+import { values } from 'mobx';
+
+import * as Api from 'src/api';
 import { UserModel } from './UserModel';
 import { AsyncModel, createCollection } from '../utils';
 import { useStore } from '../createStore';
+import { User } from '../schemas';
 
 export function useUserCollection() {
   const store = useStore();
@@ -12,11 +16,15 @@ export const usersCollection = createCollection(UserModel, {
   getUser: AsyncModel(getUser),
 });
 
-function getUser(id) {
+function getUser(username) {
   return async (flow, parent) => {
-    let user = parent.get(id);
+    if (parent.get(username)) {
+      return parent.get(username);
+    } else {
+      const res = await Api.Users.getUser(username);
 
-    if (!user) {}
+      flow.merge(res.data, User);
+    }
   };
 }
 

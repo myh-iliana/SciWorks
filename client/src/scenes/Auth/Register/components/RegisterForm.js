@@ -35,7 +35,8 @@ const RegisterForm = ({ onSubmit }) => {
     validationSchema: Yup.object().shape({
       fullName: Yup.string()
         .min(3, 'Must be at least 3 characters')
-        .max(255, 'Must be shorter than 255'),
+        .max(255, 'Must be shorter than 255')
+        .required('Please enter a value'),
       username: Yup.string()
         .min(4, 'Must be at least 4 characters')
         .max(255, 'Must be shorter than 255')

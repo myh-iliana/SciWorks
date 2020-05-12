@@ -2,9 +2,9 @@ import { applySnapshot, getRoot, types as t } from 'mobx-state-tree';
 import { CathedraModel } from '../cathedras/CathedraModel';
 
 export const UserModel = t.model('UserModel', {
-  id: t.identifierNumber,
+  username: t.identifier,
+  id: t.number,
   fullName: t.string,
-  username: t.maybeNull(t.string),
   email: t.maybe(t.string),
   isTeacher: false,
   isAdmin: false,

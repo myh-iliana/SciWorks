@@ -8,7 +8,7 @@ import Loader from '../elements/Loader/Loader';
 import './App.scss';
 
 export const colors = {
-  main: 'purple',
+  main: 'teal',
   second: 'yellow',
   neutral: 'standard',
 };
@@ -16,7 +16,7 @@ export const colors = {
 export const apiPath = 'http://localhost:3001/';
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const store = createStore();
 
   useEffect(() => {

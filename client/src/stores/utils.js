@@ -68,6 +68,26 @@ export function AsyncModel(thunk, auto = true) {
   return t.optional(model, {});
 }
 
+export function createCollection(ofModel, asyncModels = {}) {
+  const collection = t
+    .model('CollectionModel', {
+      collection: t.map(ofModel),
+      ...asyncModels,
+    })
+    .views((store) => ({
+      get(key) {
+        return store.collection.get(String(key));
+      },
+    }))
+    .actions((store) => ({
+      add(key, value) {
+        store.collection.set(String(key), value);
+      },
+    }));
+
+  return t.optional(collection, {});
+}
+
 export function createPersist(store) {
   const KEY = '_persist';
 
@@ -90,24 +110,4 @@ export function createPersist(store) {
   }
 
   return { rehydrate };
-}
-
-export function createCollection(ofModel, asyncModels = {}) {
-  const collection = t
-    .model('CollectionModel', {
-      collection: t.map(ofModel),
-      ...asyncModels,
-    })
-    .views((store) => ({
-      get(key) {
-        return store.collection.get(String(key));
-      },
-    }))
-    .actions((store) => ({
-      add(key, value) {
-        store.collection.set(String(key), value);
-      },
-    }));
-
-  return t.optional(collection, {});
 }
