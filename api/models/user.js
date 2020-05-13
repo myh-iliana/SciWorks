@@ -13,6 +13,33 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   User.associate = function(models) {
     User.belongsTo(models.Cathedra, { foreignKey: 'cathedraId', as: 'cathedra' });
+
+    User.belongsToMany(models.Monograph, {
+      through: {
+        model: models.UserPosts,
+        unique: false
+      },
+      foreignKey: 'userId',
+      constraints: false
+    });
+
+    User.belongsToMany(models.Periodicity, {
+      through: {
+        model: models.UserPosts,
+        unique: false
+      },
+      foreignKey: 'userId',
+      constraints: false
+    });
+
+    User.belongsToMany(models.Thesis, {
+      through: {
+        model: models.UserPosts,
+        unique: false
+      },
+      foreignKey: 'userId',
+      constraints: false
+    });
   };
   return User;
 };
