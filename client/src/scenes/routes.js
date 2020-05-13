@@ -14,6 +14,9 @@ export const routes = {
   register: '/auth/register',
   login: '/auth/login',
   account: '/:username',
+  monographs: '/:username/monographs',
+  periodicity: '/:username/periodicity',
+  thesis: '/:username/thesis',
   cathedra: '/:cathedraName',
 
 };

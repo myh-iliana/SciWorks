@@ -38,15 +38,3 @@ export const UserModel = t.model('UserModel', {
       };
     }
   });
-
-// t.snapshotProcessor(UserModel, {
-//   preProcessor(snapshot) {
-//     console.log('snapshot', snapshot);
-//     if (snapshot) {
-//       return {
-//         ...snapshot,
-//         cathedra: snapshot.cathedra || snapshot.cathedraId,
-//       };
-//     }
-//   },
-// });
