@@ -8,11 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      udc: {
+      title: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      title: {
+      udc: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -56,6 +56,15 @@ module.exports = {
       files: {
         type: Sequelize.STRING,
       },
+      author: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      subauthors: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

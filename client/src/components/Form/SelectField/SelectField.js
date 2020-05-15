@@ -12,6 +12,8 @@ const SelectField = ({
   name,
   label,
   defaultValue,
+  formik = true,
+  getValue,
   ...props
 }) => {
   const [active, setActive] = useState(false);
@@ -28,9 +30,12 @@ const SelectField = ({
         placeholder="Select cathedra"
         selected={selected}
         onSelectChange={(val) => {
-          setFieldValue(name, val[0]);
           setSelected(val);
           setActive(false);
+          if (formik) {
+            setFieldValue(name, val[0]);
+          }
+          getValue(val);
         }}
         onClick={() => setActive(!active)}
         onRequestClose={() => setActive(false)}
@@ -48,10 +53,10 @@ const SelectField = ({
 };
 
 SelectField.propTypes = {
-  setFieldValue: PropTypes.func.isRequired,
+  setFieldValue: PropTypes.func,
   children: PropTypes.node.isRequired,
   required: PropTypes.bool,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   label: PropTypes.node,
   defaultValue: PropTypes.array,
 };

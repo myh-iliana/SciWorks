@@ -57,6 +57,15 @@ module.exports = {
       files: {
         type: Sequelize.STRING,
       },
+      author: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      subauthors: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

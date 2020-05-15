@@ -8,7 +8,6 @@ import { useStore } from '../../stores/createStore';
 import { useUserCollection } from '../../stores/users/usersCollection';
 import { routes } from '../routes';
 import User from './components/User/User';
-import PostsBlock from './components/PostsBlock/PostsBlock';
 
 const Account = () => {
   const params = useParams();

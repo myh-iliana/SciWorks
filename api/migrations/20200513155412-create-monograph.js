@@ -12,9 +12,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      section: {
-        type: Sequelize.STRING,
-      },
+      section: Sequelize.STRING,
       monographPages: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -31,21 +29,20 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      annotations: {
-        type: Sequelize.TEXT,
-      },
-      isbn: {
+      annotations: Sequelize.TEXT,
+      isbn: Sequelize.STRING,
+      doi: Sequelize.STRING,
+      isEuLanguage: Sequelize.BOOLEAN,
+      files: Sequelize.STRING,
+      author: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
-      doi: {
+      subauthors: {
         type: Sequelize.STRING,
+        allowNull: true,
       },
-      isEuLanguage: {
-        type: Sequelize.BOOLEAN,
-      },
-      files: {
-        type: Sequelize.STRING,
-      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

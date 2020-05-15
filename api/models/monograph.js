@@ -1,6 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Monograph = sequelize.define('Monograph', {
+    author: DataTypes.STRING,
+    subauthors: DataTypes.STRING,
     title: DataTypes.STRING,
     section: DataTypes.STRING,
     monographPages: DataTypes.STRING,

@@ -25,7 +25,7 @@ const Header = () => {
 
   return (
     <Container fluid>
-      <Menu size="huge" color={colors.main} inverted attached>
+      <Menu size="large" color={colors.main} inverted attached>
         <Menu.Item>
           <SemanticHeader as="h1">
             <Link to={routes.home} className={s.logo}>
@@ -39,6 +39,8 @@ const Header = () => {
             <Dropdown item trigger={<Avatar src={avatar} />}>
               <Dropdown.Menu>
                 <Dropdown.Item icon="user" as={Link} to={pathToAccount} text="Profile" />
+                <Dropdown.Item icon="add" as={Link} to={routes.createPost} text="New post" />
+                <Dropdown.Divider />
                 <Dropdown.Item icon="sign out" text="Sign out" onClick={handleSignOut} />
               </Dropdown.Menu>
             </Dropdown>
