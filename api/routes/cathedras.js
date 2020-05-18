@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Cathedra = require('../models').Cathedra;
-const authenticateToken = require('../utils');
 
 router.get('/', function (req, res, next) {
   Cathedra.findAll({

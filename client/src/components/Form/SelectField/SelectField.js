@@ -34,8 +34,9 @@ const SelectField = ({
           setActive(false);
           if (formik) {
             setFieldValue(name, val[0]);
+          } else {
+            getValue(val);
           }
-          getValue(val);
         }}
         onClick={() => setActive(!active)}
         onRequestClose={() => setActive(false)}

@@ -117,6 +117,20 @@ export const Users = {
   },
 };
 
+export const Posts = {
+  createMonograph(data) {
+    return axios.post('/api/posts/monograph', data);
+  },
+
+  createThesis(data) {
+    return axios.post('/api/posts/thesis', data);
+  },
+
+  createPeriodicity(data) {
+    return axios.post('/api/posts/periodicity', data);
+  },
+};
+
 export const Files = {
   upload(data) {
     return axios.post('/api/upload', data, {

@@ -12,6 +12,7 @@ let cathedrasRouter = require('./routes/cathedras');
 let registerRouter = require('./routes/register');
 let loginRouter = require('./routes/login');
 let uploadRouter = require('./routes/upload');
+let postsRouter = require('./routes/posts');
 
 let app = express();
 
@@ -33,6 +34,7 @@ app.use('/cathedras', cathedrasRouter);
 app.use('/auth', registerRouter);
 app.use('/auth', loginRouter);
 app.use('/upload', uploadRouter);
+app.use('/posts', postsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

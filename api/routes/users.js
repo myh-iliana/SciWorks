@@ -5,7 +5,6 @@ const { body, validationResult } = require('express-validator');
 const authenticateToken = require('../utils');
 const validations = require('./validations');
 const User = require('../models').User;
-const Monograph = require('../models').Monograph;
 
 /* GET main user. */
 router.get('/account', authenticateToken, function (req, res, next) {

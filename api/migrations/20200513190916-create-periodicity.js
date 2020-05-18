@@ -33,13 +33,16 @@ module.exports = {
         allowNull: false,
       },
       annotations: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
+        allowNull: true,
       },
       issn: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       doi: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       isScopusAndWS: {
         type: Sequelize.BOOLEAN
@@ -55,9 +58,10 @@ module.exports = {
       },
       files: {
         type: Sequelize.STRING,
+        allowNull: true,
       },
-      author: {
-        type: Sequelize.STRING,
+      authorId: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       subauthors: {

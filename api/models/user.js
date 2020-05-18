@@ -41,5 +41,6 @@ module.exports = (sequelize, DataTypes) => {
       constraints: false
     });
   };
+
   return User;
 };
