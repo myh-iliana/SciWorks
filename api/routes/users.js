@@ -5,6 +5,9 @@ const { body, validationResult } = require('express-validator');
 const authenticateToken = require('../utils');
 const validations = require('./validations');
 const User = require('../models').User;
+const Monograph = require('../models').Monograph;
+const Periodicity = require('../models').Periodicity;
+const Thesis = require('../models').Thesis;
 
 /* GET main user. */
 router.get('/account', authenticateToken, function (req, res, next) {
@@ -108,6 +111,15 @@ router.get('/:username', function (req, res, next) {
       res.send(rest);
     })
     .catch((err) => console.log('========', err));
+});
+
+// GET all users
+router.get('/', function(req, res, next) {
+  User.findAll({
+    include: [Monograph, Periodicity, Thesis]
+  })
+    .then(users => res.send(users))
+    .catch(err => console.log('-----', err))
 });
 
 module.exports = router;

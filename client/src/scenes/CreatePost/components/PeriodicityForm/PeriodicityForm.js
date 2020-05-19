@@ -7,8 +7,7 @@ import PropTypes from 'prop-types';
 
 import Field from '../../../../components/Form/Field/Field';
 import { colors } from '../../../../components/App/App';
-
-// import s from './PeriodicityForm.module.scss';
+import UsersSelect from '../../../../components/Form/UsersSelect/UsersSelect';
 
 const PeriodicityForm = ({ onSubmit }) => {
   const formikProps = {
@@ -38,7 +37,7 @@ const PeriodicityForm = ({ onSubmit }) => {
 
   return (
     <Formik {...formikProps}>
-      {({ handleSubmit }) => {
+      {({ handleSubmit, setFieldValue }) => {
         return (
           <Form
             // error={isError}
@@ -49,6 +48,7 @@ const PeriodicityForm = ({ onSubmit }) => {
           >
             {/*{<Message error header="Log in failed" content={errorMsg} />}*/}
 
+            <UsersSelect setFieldValue={setFieldValue} />
             <Field required label="Title" name="title" placeholder="Periodicity title" />
             <Field required label="Journal" name="journal" placeholder="American Economic Journal" />
             <Form.Group widths={3}>

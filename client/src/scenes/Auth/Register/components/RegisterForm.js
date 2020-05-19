@@ -29,7 +29,7 @@ const RegisterForm = ({ onSubmit }) => {
       password: '',
       passConfirm: '',
       isTeacher: false,
-      cathedraId: [],
+      cathedraId: null,
     },
 
     validationSchema: Yup.object().shape({
@@ -52,7 +52,7 @@ const RegisterForm = ({ onSubmit }) => {
       isTeacher: Yup.boolean(),
       cathedraId: Yup.number().when('isTeacher', {
         is: true,
-        then: Yup.number().required('Please select something'),
+        then: Yup.number().required('Please select something').nullable(),
         otherwise: Yup.number().nullable()
       })
     }),
@@ -62,7 +62,7 @@ const RegisterForm = ({ onSubmit }) => {
 
   return (
     <Formik {...formikProps}>
-      {({ values, handleSubmit, setFieldValue }) => {
+      {({ values, handleSubmit, setFieldValue, errors }) => {
         const isMatch = values.password === values.passConfirm;
 
         return (
@@ -105,6 +105,7 @@ const RegisterForm = ({ onSubmit }) => {
               isTeacher={values.isTeacher}
               setFieldValue={setFieldValue}
               items={items}
+              error={errors.cathedraId}
             />
 
             <Button type="submit" size="large" color={colors.main}>

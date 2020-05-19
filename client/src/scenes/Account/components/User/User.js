@@ -28,7 +28,6 @@ const User = ({ user, isViewer }) => {
 
   useEffect(() => {
     cathedraCollection.getById.run(cathedraId);
-    if (isViewer) store.cathedras.fetchAll.run();
   }, [cathedraId]);
 
   const handleFileChange = (e) => {

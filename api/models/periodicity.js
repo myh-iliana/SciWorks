@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Periodicity = sequelize.define('Periodicity', {
-    author: DataTypes.STRING,
+    authorId: DataTypes.INTEGER,
     subauthors: DataTypes.STRING,
     udc: DataTypes.STRING,
     title: DataTypes.STRING,

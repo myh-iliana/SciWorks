@@ -108,6 +108,10 @@ export const Users = {
     return axios.get(`/api/users/${username}`);
   },
 
+  getAll() {
+    return axios.get('api/users');
+  },
+
   edit(data) {
     return axios.put('/api/users/account', data);
   },

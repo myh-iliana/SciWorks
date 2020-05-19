@@ -8,8 +8,10 @@ import MonographForm from './components/MonographForm/MonographForm';
 import SelectField from '../../components/Form/SelectField/SelectField';
 import PeriodicityForm from './components/PeriodicityForm/PeriodicityForm';
 import ThesisForm from './components/ThesisForm/ThesisForm';
+import { useStore } from '../../stores/createStore';
 
 const CreatePost = () => {
+  const store = useStore();
   const DEFAULT_VALUE = 'periodicity';
   const [selected, setSelected] = useState(DEFAULT_VALUE);
   const submitForm = () => {};
@@ -18,7 +20,6 @@ const CreatePost = () => {
     { value: 'thesis', text: 'Thesis' },
     { value: 'monograph', text: 'Monograph' },
   ];
-  console.log(selected)
 
   return (
     <Container>

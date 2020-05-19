@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 
 import Field from '../../../../components/Form/Field/Field';
 import { colors } from '../../../../components/App/App';
+import UsersSelect from '../../../../components/Form/UsersSelect/UsersSelect';
 
 // import s from './MonographForm.module.scss';
 
@@ -35,7 +36,7 @@ const MonographForm = ({ onSubmit }) => {
 
   return (
     <Formik {...formikProps}>
-      {({ handleSubmit }) => {
+      {({ handleSubmit, setFieldValue }) => {
         return (
           <Form
             // error={isError}
@@ -46,6 +47,7 @@ const MonographForm = ({ onSubmit }) => {
           >
             {/*{<Message error header="Log in failed" content={errorMsg} />}*/}
 
+            <UsersSelect setFieldValue={setFieldValue} />
             <Field required label="Title" name="title" placeholder="Monograph title" />
             <Field label="Section" name="section" placeholder="Section name" />
             <Form.Group widths={2}>

@@ -4,6 +4,7 @@ import { Form } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 import './SelectField.scss';
+import Error from '../Error/Error';
 
 const SelectField = ({
   setFieldValue,
@@ -13,7 +14,9 @@ const SelectField = ({
   label,
   defaultValue,
   formik = true,
+  multiple = false,
   getValue,
+  error = null,
   ...props
 }) => {
   const [active, setActive] = useState(false);
@@ -27,13 +30,12 @@ const SelectField = ({
         active={active}
         search
         selection
-        placeholder="Select cathedra"
         selected={selected}
         onSelectChange={(val) => {
           setSelected(val);
           setActive(false);
           if (formik) {
-            setFieldValue(name, val[0]);
+            setFieldValue(name, multiple ? val : val[0]);
           } else {
             getValue(val);
           }
@@ -45,10 +47,13 @@ const SelectField = ({
         onSearchStringChange={(search) => setSearchString(search)}
         searchString={searchString}
         name={name}
+        multiple={multiple}
         {...props}
       >
         {children}
       </Select>
+
+      {error && <Error>{error}</Error>}
     </Form.Field>
   );
 };
@@ -60,6 +65,10 @@ SelectField.propTypes = {
   name: PropTypes.string,
   label: PropTypes.node,
   defaultValue: PropTypes.array,
+  formik: PropTypes.bool,
+  multiple: PropTypes.bool,
+  getValue: PropTypes.func,
+  error: PropTypes.node,
 };
 
 export default SelectField;

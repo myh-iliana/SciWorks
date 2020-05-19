@@ -7,12 +7,15 @@ import { CathedrasStore } from './cathedras/CathedrasStore';
 import { getAccessToken, getRefreshToken } from '../api/utils';
 import { EntitiesStore } from './EntitiesStore';
 import { FilesStore } from './files/FilesStore';
+import { UsersStore } from './users/UsersStore';
 
 export const RootStore = t
   .model('RootStore', {
     auth: t.optional(AuthStore, {}),
 
     viewer: t.optional(ViewerStore, {}),
+    users: t.optional(UsersStore, {}),
+
     cathedras: t.optional(CathedrasStore, {}),
 
     files: t.optional(FilesStore, {}),

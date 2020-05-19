@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 
 import Field from '../../../../components/Form/Field/Field';
 import { colors } from '../../../../components/App/App';
+import UsersSelect from '../../../../components/Form/UsersSelect/UsersSelect';
 
 // import s from './ThesisForm.module.scss';
 
@@ -38,7 +39,7 @@ const ThesisForm = ({ onSubmit }) => {
 
   return (
     <Formik {...formikProps}>
-      {({ handleSubmit }) => {
+      {({ handleSubmit, setFieldValue, values }) => {
         return (
           <Form
             // error={isError}
@@ -48,7 +49,9 @@ const ThesisForm = ({ onSubmit }) => {
             className="attached"
           >
             {/*{<Message error header="Log in failed" content={errorMsg} />}*/}
+            {console.log(values.subauthors)}
 
+            <UsersSelect setFieldValue={setFieldValue} />
             <Field required label="Title" name="title" placeholder="Thesis title" />
             <Field required label="Conference" name="conference" placeholder="Florida High School Hockey Association Conference" />
             <Field required label="City" name="city" placeholder="Ivano-Frankivsk" />

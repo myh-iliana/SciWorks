@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Option } from 'semantic-react';
 import PropTypes from 'prop-types';
 
 import SelectField from '../SelectField/SelectField';
 import Field from '../Field/Field';
+import { useStore } from '../../../stores/createStore';
+import { observer } from 'mobx-react';
 
-const CathedrasSelect = ({ items, isTeacher = false, setFieldValue, ...props }) => {
+const CathedrasSelect = ({ isTeacher = false, setFieldValue, error, ...props }) => {
+  const store = useStore();
+  const { items, fetchAll } = store.cathedras;
+
+  useEffect(() => {
+    fetchAll.run();
+  }, []);
+
   return (
     <React.Fragment>
       <Field onClick={(e, props) => !props.checked && setFieldValue('cathedraId', null)} type="checkbox" label="I am professor" id="isTeacher" name="isTeacher" />
@@ -13,9 +22,12 @@ const CathedrasSelect = ({ items, isTeacher = false, setFieldValue, ...props }) 
       <SelectField
         label='Your cathedra'
         name="cathedraId"
+        placeholder="Select cathedra"
         required={isTeacher}
         disabled={!isTeacher}
         setFieldValue={setFieldValue}
+        error={error}
+        loading={fetchAll.isLoading}
         {...props}
       >
         {items.map(({ name, id }) => (
@@ -34,4 +46,4 @@ CathedrasSelect.propTypes = {
   setFieldValue: PropTypes.func.isRequired,
 };
 
-export default CathedrasSelect;
+export default observer(CathedrasSelect);

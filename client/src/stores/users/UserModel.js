@@ -1,5 +1,8 @@
-import { applySnapshot, getRoot, types as t } from 'mobx-state-tree';
+import { getRoot, types as t } from 'mobx-state-tree';
 import { CathedraModel } from '../cathedras/CathedraModel';
+import { ThesisModel } from '../posts/ThesisModel';
+import { MonographModel } from '../posts/MonographModel';
+import { PeriodicityModel } from '../posts/PeriodicityModel';
 
 export const UserModel = t.model('UserModel', {
   username: t.identifier,
@@ -13,6 +16,10 @@ export const UserModel = t.model('UserModel', {
   updatedAt: t.string,
   avatar: t.maybeNull(t.string),
   bio: t.maybeNull(t.string),
+
+  Monographs: t.optional(t.array(MonographModel), []),
+  Periodicities: t.optional(t.array(PeriodicityModel), []),
+  Theses: t.optional(t.array(ThesisModel), []),
 
   cathedra: t.maybeNull(
     t.reference(CathedraModel, {

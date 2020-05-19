@@ -14,7 +14,6 @@ import CathedrasSelect from '../../../../components/Form/CathedrasSelect/Cathedr
 const EditForm = ({ user, cancelEdit }) => {
   const history = useHistory();
   const store = useStore();
-  const { items } = store.cathedras;
   const { fullName, username, email, isTeacher, cathedraId, id, bio } = user;
   const { isLoading, isError, errorMsg, redirect } = store.viewer.edit;
 
@@ -56,7 +55,7 @@ const EditForm = ({ user, cancelEdit }) => {
       isTeacher: Yup.boolean(),
       cathedraId: Yup.number().when('isTeacher', {
         is: true,
-        then: Yup.number().required('Please select something'),
+        then: Yup.number().required('Please select something').nullable(),
         otherwise: Yup.number().nullable()
       })
     }),
@@ -73,7 +72,7 @@ const EditForm = ({ user, cancelEdit }) => {
 
   return (
     <Formik {...formikProps}>
-      {({ handleSubmit, setFieldValue, values }) => {
+      {({ handleSubmit, setFieldValue, values, errors }) => {
         return (
           <Form noValidate onSubmit={handleSubmit} error={isError} loading={isLoading}>
             {isError && <ErrorMessage errors={errorMsg} />}
@@ -92,7 +91,7 @@ const EditForm = ({ user, cancelEdit }) => {
               isTeacher={values.isTeacher}
               setFieldValue={setFieldValue}
               defaultValue={[cathedraId]}
-              items={items}
+              error={errors.cathedraId}
             />
 
             <Field
