@@ -36,8 +36,6 @@ export function AsyncModel(thunk, auto = true) {
 
       merge(data, schema) {
         const { result, entities } = normalize(data, schema);
-        console.log('result', result)
-        console.log('entities', entities)
 
         getRoot(store).entities.merge(entities);
 

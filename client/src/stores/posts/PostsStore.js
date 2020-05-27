@@ -6,8 +6,8 @@ import { MonographModel } from './MonographModel';
 import { PeriodicityModel } from './PeriodicityModel';
 import { ThesisModel } from './ThesisModel';
 
-export const UserPostsStore = t
-  .model('UserPostsStore', {
+export const PostsStore = t
+  .model('PostsStore', {
     periodic: t.array(t.reference(PeriodicityModel)),
     thesis: t.array(t.reference(ThesisModel)),
     monographs: t.array(t.reference(MonographModel)),

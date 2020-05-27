@@ -10,7 +10,7 @@ import { colors } from '../../../../components/App/App';
 import UsersSelect from '../../../../components/Form/UsersSelect/UsersSelect';
 import { useStore } from '../../../../stores/createStore';
 
-const ThesisForm = ({ onSubmit, authorId }) => {
+const ThesisForm = ({ onSubmit }) => {
   const formikProps = {
     initialValues: {
       title: '',
@@ -37,7 +37,7 @@ const ThesisForm = ({ onSubmit, authorId }) => {
   };
 
   const store = useStore();
-  const { isLoading, isError } = store.userPosts.addThesis;
+  const { isLoading, isError } = store.posts.addThesis;
 
   return (
     <Formik {...formikProps}>

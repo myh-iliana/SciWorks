@@ -37,7 +37,7 @@ const PeriodicityForm = ({ onSubmit }) => {
   };
 
   const store = useStore();
-  const { isLoading, isError } = store.userPosts.addPeriodic;
+  const { isLoading, isError } = store.posts.addPeriodic;
 
   return (
     <Formik {...formikProps}>

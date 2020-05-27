@@ -12,7 +12,7 @@ import { useStore } from '../../stores/createStore';
 
 const CreatePost = () => {
   const store = useStore();
-  const { addPeriodic, addThesis, addMonograph } = store.userPosts;
+  const { addPeriodic, addThesis, addMonograph } = store.posts;
   const user = store.viewer.user;
   const DEFAULT_VALUE = 'periodicity';
   const [selected, setSelected] = useState(DEFAULT_VALUE);
