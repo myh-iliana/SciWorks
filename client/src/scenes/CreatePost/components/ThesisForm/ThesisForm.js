@@ -8,10 +8,9 @@ import PropTypes from 'prop-types';
 import Field from '../../../../components/Form/Field/Field';
 import { colors } from '../../../../components/App/App';
 import UsersSelect from '../../../../components/Form/UsersSelect/UsersSelect';
+import { useStore } from '../../../../stores/createStore';
 
-// import s from './ThesisForm.module.scss';
-
-const ThesisForm = ({ onSubmit }) => {
+const ThesisForm = ({ onSubmit, authorId }) => {
   const formikProps = {
     initialValues: {
       title: '',
@@ -28,7 +27,7 @@ const ThesisForm = ({ onSubmit }) => {
       isScientometrics: false,
       isInternational: false,
       files: null,
-      author: '',
+      author: null,
       subauthors: null,
     },
 
@@ -37,19 +36,21 @@ const ThesisForm = ({ onSubmit }) => {
     onSubmit,
   };
 
+  const store = useStore();
+  const { isLoading, isError } = store.userPosts.addThesis;
+
   return (
     <Formik {...formikProps}>
       {({ handleSubmit, setFieldValue, values }) => {
         return (
           <Form
-            // error={isError}
-            // loading={isLoading}
+            error={isError}
+            loading={isLoading}
             noValidate
             onSubmit={handleSubmit}
             className="attached"
           >
             {/*{<Message error header="Log in failed" content={errorMsg} />}*/}
-            {console.log(values.subauthors)}
 
             <UsersSelect setFieldValue={setFieldValue} />
             <Field required label="Title" name="title" placeholder="Thesis title" />
@@ -93,6 +94,11 @@ const ThesisForm = ({ onSubmit }) => {
       }}
     </Formik>
   );
+};
+
+ThesisForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  authorId: PropTypes.number,
 };
 
 export default observer(ThesisForm);

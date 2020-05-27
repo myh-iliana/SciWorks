@@ -1,5 +1,3 @@
-import { values } from 'mobx';
-
 import * as Api from 'src/api';
 import { UserModel } from './UserModel';
 import { AsyncModel, createCollection } from '../utils';

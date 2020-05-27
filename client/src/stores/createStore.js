@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import { createContext, useContext } from 'react';
 import { onSnapshot } from 'mobx-state-tree';
 
 import { RootStore } from './RootStore';
@@ -11,7 +11,7 @@ export const createStore = () => {
   persist.rehydrate();
 
   onSnapshot(root, (snapshot) => {
-    // console.log(JSON.stringify(snapshot, null, 2));
+    console.log(JSON.stringify(snapshot, null, 2));
   });
 
   return root;

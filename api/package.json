@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "migrate": "npx sequelize-cli db:migrate",
-    "migrateundo": "npx sequelize-cli db:migrate:undo"
+    "undo": "npx sequelize-cli db:migrate:undo"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

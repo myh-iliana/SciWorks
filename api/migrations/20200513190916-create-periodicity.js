@@ -25,11 +25,11 @@ module.exports = {
         allowNull: false,
       },
       journalPages: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       pages: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       annotations: {
@@ -60,7 +60,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      authorId: {
+      author: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },

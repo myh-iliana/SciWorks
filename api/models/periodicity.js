@@ -1,14 +1,14 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Periodicity = sequelize.define('Periodicity', {
-    authorId: DataTypes.INTEGER,
+    author: DataTypes.INTEGER,
     subauthors: DataTypes.STRING,
     udc: DataTypes.STRING,
     title: DataTypes.STRING,
     journal: DataTypes.STRING,
     issueNumber: DataTypes.INTEGER,
-    journalPages: DataTypes.INTEGER,
-    pages: DataTypes.INTEGER,
+    journalPages: DataTypes.STRING,
+    pages: DataTypes.STRING,
     annotations: DataTypes.TEXT,
     issn: DataTypes.STRING,
     doi: DataTypes.STRING,

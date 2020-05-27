@@ -33,7 +33,7 @@ module.exports = {
         allowNull: false,
       },
       pages: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       annotations: {
@@ -61,7 +61,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      authorId: {
+      author: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },

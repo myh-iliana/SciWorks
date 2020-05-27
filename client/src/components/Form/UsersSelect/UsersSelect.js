@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { Option } from 'semantic-react';
 import PropTypes from 'prop-types';
+import { observer } from 'mobx-react';
 
 import SelectField from '../SelectField/SelectField';
 import { useStore } from '../../../stores/createStore';
-import { observer } from 'mobx-react';
 
 import s from './UsersSelect.module.scss';
 
@@ -22,14 +22,14 @@ const UsersSelect = ({ setFieldValue, error, ...props }) => {
       required
       multiple
       loading={fetchAll.isLoading}
-      label="Select authors"
+      label="Select subauthors"
       name="subauthors"
-      placeholder="Select authors"
+      placeholder="Select subauthors"
       setFieldValue={setFieldValue}
       error={error}
       {...props}
     >
-      {items.map(({ username,fullName, id }) => (
+      {items.map(({ username, fullName, id }) => (
         <Option key={id} value={id}>
           {username} <span className={s.light_text}>({fullName})</span>
         </Option>

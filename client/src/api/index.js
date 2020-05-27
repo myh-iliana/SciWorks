@@ -109,7 +109,7 @@ export const Users = {
   },
 
   getAll() {
-    return axios.get('api/users');
+    return axios.get('/api/users');
   },
 
   edit(data) {
@@ -122,16 +122,28 @@ export const Users = {
 };
 
 export const Posts = {
-  createMonograph(data) {
-    return axios.post('/api/posts/monograph', data);
+  createPeriodicity(data) {
+    return axios.post('/api/posts/periodicity', data);
   },
 
   createThesis(data) {
     return axios.post('/api/posts/thesis', data);
   },
 
-  createPeriodicity(data) {
-    return axios.post('/api/posts/periodicity', data);
+  createMonograph(data) {
+    return axios.post('/api/posts/monograph', data);
+  },
+
+  getPeriodicity(id) {
+    return axios.get(`/api/posts/periodicity/${id}`);
+  },
+
+  getThesis(id) {
+    return axios.get(`/api/posts/thesis/${id}`);
+  },
+
+  getMonograph(id) {
+    return axios.get(`/api/posts/monograph/${id}`);
   },
 };
 

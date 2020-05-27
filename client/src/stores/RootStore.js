@@ -8,6 +8,7 @@ import { getAccessToken, getRefreshToken } from '../api/utils';
 import { EntitiesStore } from './EntitiesStore';
 import { FilesStore } from './files/FilesStore';
 import { UsersStore } from './users/UsersStore';
+import { UserPostsStore } from './posts/UserPostsStore';
 
 export const RootStore = t
   .model('RootStore', {
@@ -15,6 +16,7 @@ export const RootStore = t
 
     viewer: t.optional(ViewerStore, {}),
     users: t.optional(UsersStore, {}),
+    // userPosts: t.optional(UserPostsStore, {}),
 
     cathedras: t.optional(CathedrasStore, {}),
 

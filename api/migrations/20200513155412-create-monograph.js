@@ -21,11 +21,11 @@ module.exports = {
         allowNull: false,
       },
       printPages: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       pages: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       year: {
@@ -52,7 +52,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
       },
-      authorId: {
+      author: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },

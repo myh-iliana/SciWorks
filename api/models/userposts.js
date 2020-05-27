@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const UserPosts = sequelize.define('UserPosts', {
     userId: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
     },
     postId: {
       type: DataTypes.INTEGER,

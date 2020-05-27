@@ -18,7 +18,9 @@ const Account = () => {
   const user = isViewer ? store.viewer.user : collection.get(params.username);
 
   useEffect(() => {
-    getUser.run(params.username);
+    if (params.username !== store.viewer.user.username) {
+      getUser.run(params.username);
+    }
   }, [params.username]);
 
   return (

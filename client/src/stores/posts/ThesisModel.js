@@ -2,7 +2,7 @@ import { types as t } from 'mobx-state-tree';
 
 export const ThesisModel = t.model('ThesisModel', {
   id: t.identifierNumber,
-  authorId: t.number,
+  author: t.number,
   subauthors: t.maybeNull(t.string),
   udc: t.string,
   title: t.string,
@@ -10,7 +10,7 @@ export const ThesisModel = t.model('ThesisModel', {
   city: t.string,
   dates: t.string,
   collectionPages: t.string,
-  pages: t.number,
+  pages: t.string,
   annotations: t.maybeNull(t.string),
   issn: t.maybeNull(t.string),
   doi: t.maybeNull(t.string),
@@ -18,4 +18,6 @@ export const ThesisModel = t.model('ThesisModel', {
   isScientometrics: false,
   isInternational: false,
   files: t.maybeNull(t.string),
+
+  // UserPosts: t.optional(t.frozen(), {}),
 });

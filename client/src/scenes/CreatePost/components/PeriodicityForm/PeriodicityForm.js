@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import Field from '../../../../components/Form/Field/Field';
 import { colors } from '../../../../components/App/App';
 import UsersSelect from '../../../../components/Form/UsersSelect/UsersSelect';
+import { useStore } from '../../../../stores/createStore';
 
 const PeriodicityForm = ({ onSubmit }) => {
   const formikProps = {
@@ -26,7 +27,7 @@ const PeriodicityForm = ({ onSubmit }) => {
       isProfessional: false,
       isElectronic: false,
       files: null,
-      author: '',
+      author: null,
       subauthors: null,
     },
 
@@ -35,13 +36,16 @@ const PeriodicityForm = ({ onSubmit }) => {
     onSubmit,
   };
 
+  const store = useStore();
+  const { isLoading, isError } = store.userPosts.addPeriodic;
+
   return (
     <Formik {...formikProps}>
       {({ handleSubmit, setFieldValue }) => {
         return (
           <Form
-            // error={isError}
-            // loading={isLoading}
+            error={isError}
+            loading={isLoading}
             noValidate
             onSubmit={handleSubmit}
             className="attached"
@@ -95,6 +99,11 @@ const PeriodicityForm = ({ onSubmit }) => {
       }}
     </Formik>
   );
+};
+
+PeriodicityForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  authorId: PropTypes.number,
 };
 
 export default observer(PeriodicityForm);

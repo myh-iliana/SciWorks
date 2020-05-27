@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
   Cathedra.associate = function(models) {
-    Cathedra.hasMany(models.User, { as: 'workers' });
+    Cathedra.hasMany(models.User, { foreignKey: 'cathedraId', as: 'workers' });
   };
   return Cathedra;
 };

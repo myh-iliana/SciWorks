@@ -8,10 +8,9 @@ import PropTypes from 'prop-types';
 import Field from '../../../../components/Form/Field/Field';
 import { colors } from '../../../../components/App/App';
 import UsersSelect from '../../../../components/Form/UsersSelect/UsersSelect';
+import { useStore } from '../../../../stores/createStore';
 
-// import s from './MonographForm.module.scss';
-
-const MonographForm = ({ onSubmit }) => {
+const MonographForm = ({ onSubmit, authorId }) => {
   const formikProps = {
     initialValues: {
       title: '',
@@ -25,7 +24,7 @@ const MonographForm = ({ onSubmit }) => {
       doi: null,
       isEuLanguage: false,
       files: null,
-      author: '',
+      author: null,
       subauthors: null,
     },
 
@@ -34,13 +33,16 @@ const MonographForm = ({ onSubmit }) => {
     onSubmit,
   };
 
+  const store = useStore();
+  const { isLoading, isError } = store.userPosts.addMonograph;
+
   return (
     <Formik {...formikProps}>
       {({ handleSubmit, setFieldValue }) => {
         return (
           <Form
-            // error={isError}
-            // loading={isLoading}
+            error={isError}
+            loading={isLoading}
             noValidate
             onSubmit={handleSubmit}
             className="attached"
@@ -76,6 +78,11 @@ const MonographForm = ({ onSubmit }) => {
       }}
     </Formik>
   );
+};
+
+MonographForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  authorId: PropTypes.number,
 };
 
 export default observer(MonographForm);

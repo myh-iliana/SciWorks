@@ -13,11 +13,28 @@ const Thesis = require('../models').Thesis;
 router.get('/account', authenticateToken, function (req, res, next) {
   User.findOne({
     where: { id: req.user.id },
+    attributes: { exclude: ["password"] },
+    include: [ Monograph, Periodicity, Thesis ]
   })
-    .then((user) => {
+    .then(async (user) => {
       if (user === null) res.status(404).send('Cannot find user');
-      const { password, ...rest } = user.get();
-      res.send(rest);
+
+      res.send(user.get());
+    })
+    .catch((err) => console.log('========', err));
+});
+
+// GET user
+router.get('/:username', function (req, res, next) {
+  User.findOne({
+    where: { username: req.params.username },
+    attributes: { exclude: ["password"] },
+    include: [ Monograph, Periodicity, Thesis ],
+  })
+    .then(async (user) => {
+      if (user === null) res.status(404).send('Cannot find user');
+
+      res.send(user.get());
     })
     .catch((err) => console.log('========', err));
 });
@@ -33,6 +50,7 @@ router.put('/account/avatar', authenticateToken, function (req, res, next) {
       if (rows[0] > 0) {
         return User.findOne({
           where: { id: req.user.id },
+          attributes: { exclude: ["password"] },
         });
       }
 
@@ -40,8 +58,7 @@ router.put('/account/avatar', authenticateToken, function (req, res, next) {
     })
     .then(user => {
       if (user) {
-        const { password, ...rest } = user.get();
-        return res.send(rest);
+        return res.send(user.get());
       }
 
       return res.status(404).send({ error: 'User not found' });
@@ -99,26 +116,14 @@ router.put('/account', [
   }
 });
 
-// GET user
-router.get('/:username', function (req, res, next) {
-  User.findOne({
-    where: { username: req.params.username },
-  })
-    .then((user) => {
-      if (user === null) res.status(404).send('Cannot find user');
-
-      const { password, ...rest } = user.get();
-      res.send(rest);
-    })
-    .catch((err) => console.log('========', err));
-});
-
 // GET all users
 router.get('/', function(req, res, next) {
   User.findAll({
-    include: [Monograph, Periodicity, Thesis]
+    attributes: { exclude: ["password"] }
   })
-    .then(users => res.send(users))
+    .then(async users => {
+      res.send(users);
+    })
     .catch(err => console.log('-----', err))
 });
 

@@ -20,7 +20,7 @@ export const routes = {
   monographs: '/:username/monographs',
   periodicity: '/:username/periodicity',
   thesis: '/:username/thesis',
-  createPost: '/create_post',
+  createPost: '/create',
 
   cathedra: '/:cathedraName',
 };

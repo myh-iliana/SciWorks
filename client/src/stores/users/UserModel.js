@@ -17,9 +17,9 @@ export const UserModel = t.model('UserModel', {
   avatar: t.maybeNull(t.string),
   bio: t.maybeNull(t.string),
 
-  Monographs: t.optional(t.array(MonographModel), []),
-  Periodicities: t.optional(t.array(PeriodicityModel), []),
-  Theses: t.optional(t.array(ThesisModel), []),
+  Monographs: t.optional(t.array(t.union(MonographModel, t.reference(MonographModel))), []),
+  Periodicities: t.optional(t.array(t.union(PeriodicityModel, t.reference(PeriodicityModel))), []),
+  Theses: t.optional(t.array(t.union(ThesisModel, t.reference(ThesisModel))), []),
 
   cathedra: t.maybeNull(
     t.reference(CathedraModel, {

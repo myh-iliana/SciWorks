@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Thesis = sequelize.define('Thesis', {
-    authorId: DataTypes.INTEGER,
+    author: DataTypes.INTEGER,
     subauthors: DataTypes.STRING,
     udc: DataTypes.STRING,
     title: DataTypes.STRING,
@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     city: DataTypes.STRING,
     dates: DataTypes.STRING,
     collectionPages: DataTypes.STRING,
-    pages: DataTypes.INTEGER,
+    pages: DataTypes.STRING,
     annotations: DataTypes.TEXT,
     issn: DataTypes.STRING,
     doi: DataTypes.STRING,
