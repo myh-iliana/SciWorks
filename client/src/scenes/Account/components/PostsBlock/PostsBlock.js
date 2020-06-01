@@ -12,7 +12,7 @@ const PostsBlock = ({ items, path }) => {
   if (items.length <= 0) {
     return (
       <Header as="h4" icon textAlign="center">
-        <Icon name="ban" />
+        <Icon name="x" />
         No posts
       </Header>
     );
@@ -21,48 +21,57 @@ const PostsBlock = ({ items, path }) => {
   return (
     <div>
       <Item.Group divided>
-        {items.map((post) => (
-          <Item>
-            <Item.Content>
-              <Item.Header as={Link} to={generatePath(path, { id: post.id })}>
-                {post.title}
-              </Item.Header>
-              <Item.Meta>
-                <Label.Group size='small' className={s.tags}>
-                  {post.isElectronic && <Label tag size='small'>Electronic</Label>}
-                  {post.isEuLanguage && <Label tag>European language</Label>}
-                  {post.isScopusAndWS && <Label tag>Scopus and Web of Science</Label>}
-                  {post.isScientometrics && <Label tag>Scientometric databases</Label>}
-                  {post.isProfessional && <Label tag>Professional</Label>}
-                  {post.isInternational && <Label tag>International conference</Label>}
-                </Label.Group>
+        {items.map((post) => {
+          const created = new Date(post.createdAt);
 
-                {post.Users.map(({ id, username }) => (
-                  <Link
-                    className={id !== post.author ? s.subauthor : s.mainAuthor}
-                    to={generatePath(routes.account, { username })}
+          return (
+            <Item key={post.id} className={s.item}>
+              <Item.Content>
+                <Item.Header as={Link} to={generatePath(path, { id: post.id })}>
+                  {post.title}
+                </Item.Header>
+                <Item.Meta>
+                  <div className={s.date}>
+                    <div>{created.toLocaleDateString()}</div>
+                  </div>
+
+                  <Label.Group size='small' className={s.tags} tag>
+                    {post.isElectronic && <Label>Electronic</Label>}
+                    {post.isEuLanguage && <Label>European language</Label>}
+                    {post.isScopusAndWS && <Label>Scopus and Web of Science</Label>}
+                    {post.isScientometrics && <Label>Scientometric databases</Label>}
+                    {post.isProfessional && <Label>Professional</Label>}
+                    {post.isInternational && <Label>International conference</Label>}
+                  </Label.Group>
+
+                  {post.Users.map(({ id, username }) => (
+                    <Link
+                      className={id !== post.author ? s.subauthor : s.mainAuthor}
+                      to={generatePath(routes.account, { username })}
+                      key={id}
+                    >
+                      {username}
+                    </Link>
+                  ))}
+                </Item.Meta>
+                <Item.Description className={s.desc}>
+                  {post.annotations}
+                </Item.Description>
+                <Item.Extra>
+                  <Button
+                    color={colors.main}
+                    as={Link}
+                    to={generatePath(path, { id: post.id })}
+                    floated="right"
                   >
-                    {username}
-                  </Link>
-                ))}
-              </Item.Meta>
-              <Item.Description className={s.desc}>
-                {post.annotations}
-              </Item.Description>
-              <Item.Extra>
-                <Button
-                  color={colors.main}
-                  as={Link}
-                  to={generatePath(path, { id: post.id })}
-                  floated="right"
-                >
-                  See more
-                  <Icon name="right chevron" />
-                </Button>
-              </Item.Extra>
-            </Item.Content>
-          </Item>
-        ))}
+                    See more
+                    <Icon name="right chevron" />
+                  </Button>
+                </Item.Extra>
+              </Item.Content>
+            </Item>
+          );
+        })}
       </Item.Group>
     </div>
   );

@@ -1,0 +1,57 @@
+.container {
+  margin-top: 50px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: -10px;
+}
+
+.subauthor:not(:last-child):after {
+  content: ',';
+  margin-right: 5px;
+}
+
+.mainAuthor {
+  color: #00b5ad !important;
+
+  &:hover {
+    color: #00968e !important;
+  }
+}
+
+.desc {
+  margin-top: 20px;
+  color: #a5a8a5;
+  white-space: pre-wrap;
+  text-align: justify;
+}
+
+.info {
+  margin-top: 10px;
+
+  div {
+    font-weight: bold;
+
+    span {
+      font-weight: normal;
+      color: #858c89;
+    }
+  }
+}
+
+.tags {
+  margin-top: 10px;
+}
+
+.segment {
+  position: relative;
+  padding-bottom: 70px !important;
+}
+
+.date {
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+}

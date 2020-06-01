@@ -31,7 +31,7 @@ router.post('/monograph', authenticateToken, function (req, res, next) {
   Monograph.create({ subauthors: subauthorsString, author, ...rest })
     .then(post => {
       post.setUsers(ids);
-      res.send({ post: post.get() });
+      res.send(post.get());
     })
     .catch(err => {
       console.log('-----', err);
@@ -39,21 +39,27 @@ router.post('/monograph', authenticateToken, function (req, res, next) {
     });
 });
 
-router.get('/monograph/all', authenticateToken, function (req, res, next) {
+router.get('/monograph/all', function (req, res, next) {
   Monograph.findAll()
-    .then(post => res.send({ post }))
+    .then(post => res.send(post))
     .catch(err => {
       console.log('-----', err);
-      res.send('Not created');
+      res.send('Something went wrong');
     });
 });
 
-router.get('/monograph/:id', authenticateToken, function (req, res, next) {
-  Monograph.findByPk(req.params.id)
-    .then(post => res.send({ post }))
+router.get('/monograph/:id', function (req, res, next) {
+  Monograph.findOne({
+    where: { id: req.params.id },
+    include: [{
+      model: User,
+      attributes: ['username', 'id'],
+    }]
+  })
+    .then(post => res.send(post))
     .catch(err => {
       console.log('-----', err);
-      res.send('Not created');
+      res.send('Something went wrong');
     });
 });
 // -------------------------------
@@ -66,7 +72,7 @@ router.post('/thesis', authenticateToken, function (req, res, next) {
   Thesis.create({ subauthors: subauthorsString, author, ...rest })
     .then(post => {
       post.setUsers(ids);
-      res.send({ post: post.get() });
+      res.send(post.get());
     })
     .catch(err => {
       console.log('-----', err);
@@ -74,21 +80,27 @@ router.post('/thesis', authenticateToken, function (req, res, next) {
     });
 });
 
-router.get('/thesis/all', authenticateToken, function (req, res, next) {
+router.get('/thesis/all', function (req, res, next) {
   Thesis.findAll()
-    .then(post => res.send({ post }))
+    .then(post => res.send(post))
     .catch(err => {
       console.log('-----', err);
-      res.send('Not created');
+      res.send('Something went wrong');
     });
 });
 
-router.get('/thesis/:id', authenticateToken, function (req, res, next) {
-  Thesis.findByPk(req.params.id)
-    .then(post => res.send({ post }))
+router.get('/thesis/:id', function (req, res, next) {
+  Thesis.findOne({
+    where: { id: req.params.id },
+    include: [{
+      model: User,
+      attributes: ['username', 'id'],
+    }]
+  })
+    .then(post => res.send(post))
     .catch(err => {
       console.log('-----', err);
-      res.send('Not created');
+      res.send('Something went wrong');
     });
 });
 // -----------------------------
@@ -101,7 +113,7 @@ router.post('/periodicity', authenticateToken, function (req, res, next) {
   Periodicity.create({ subauthors: subauthorsString, author, ...rest })
     .then(post => {
       post.setUsers(ids);
-      res.send({ post: post.get() });
+      res.send(post.get());
     })
     .catch(err => {
       console.log('-----', err);
@@ -109,21 +121,27 @@ router.post('/periodicity', authenticateToken, function (req, res, next) {
     });
 });
 
-router.get('/periodicity/all', authenticateToken, function (req, res, next) {
+router.get('/periodicity/all', function (req, res, next) {
   Periodicity.findAll()
-    .then(post => res.send({ post }))
+    .then(post => res.send(post))
     .catch(err => {
       console.log('-----', err);
-      res.send('Not created');
+      res.send('Something went wrong');
     });
 });
 
-router.get('/periodicity/:id', authenticateToken, function (req, res, next) {
-  Periodicity.findByPk(req.params.id)
-    .then(post => res.send({ post }))
+router.get('/periodicity/:id', function (req, res, next) {
+  Periodicity.findOne({
+    where: { id: req.params.id },
+    include: [{
+      model: User,
+      attributes: ['username', 'id'],
+    }]
+  })
+    .then(post => res.send(post))
     .catch(err => {
       console.log('-----', err);
-      res.send('Not created');
+      res.send('Something went wrong');
     });
 });
 // ----------------------------

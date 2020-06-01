@@ -16,11 +16,9 @@ export const periodicityCollection = createCollection(PeriodicityModel, {
 
 function getById(id) {
   return async (flow, parent) => {
-    const post = parent.get(id);
-
-    if (post) return post;
-
-    if (!post) {
+    if (parent.get(id)) {
+      return parent.get(id);
+    } else {
       const res = await Api.Posts.getPeriodicity(id);
 
       flow.merge(res.data, PeriodicityPost);

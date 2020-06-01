@@ -15,6 +15,8 @@ export const MonographModel = t.model('MonographModel', {
   doi: t.maybeNull(t.string),
   isEuLanguage: false,
   files: t.maybeNull(t.string),
+  createdAt: t.string,
+  updatedAt: t.string,
 
   Users: t.optional(t.frozen(), []),
 });

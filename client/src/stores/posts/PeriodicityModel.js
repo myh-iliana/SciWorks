@@ -18,6 +18,8 @@ export const PeriodicityModel = t.model('PeriodicityModel', {
   isProfessional: false,
   isElectronic: false,
   files: t.maybeNull(t.string),
+  createdAt: t.string,
+  updatedAt: t.string,
 
   Users: t.optional(t.frozen(), []),
 });

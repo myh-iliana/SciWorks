@@ -18,6 +18,8 @@ export const ThesisModel = t.model('ThesisModel', {
   isScientometrics: false,
   isInternational: false,
   files: t.maybeNull(t.string),
+  createdAt: t.string,
+  updatedAt: t.string,
 
   Users: t.optional(t.frozen(), []),
 });

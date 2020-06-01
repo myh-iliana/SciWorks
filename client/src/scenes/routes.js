@@ -8,6 +8,9 @@ import Home from './Home/Home';
 import Auth from './Auth/Auth';
 import Account from './Account/Account';
 import CreatePost from './CreatePost/CreatePost';
+import PeriodicPost from './PeriodicPost/PeriodicPost';
+import MonographPost from './MonographPost/MonographPost';
+import ThesisPost from './ThesisPost/ThesisPost';
 
 export const routes = {
   home: '/',
@@ -55,6 +58,9 @@ const Router = () => {
         <Route path={routes.auth} component={Auth} />
         <PrivateRouter exact path={routes.createPost} component={CreatePost} />
         <PrivateRouter path={routes.account} component={Account} />
+        <Route path={routes.periodicityPost} component={PeriodicPost} />
+        <Route path={routes.monographPost} component={MonographPost} />
+        <Route path={routes.thesisPost} component={ThesisPost} />
       </Switch>
     </BrowserRouter>
   );

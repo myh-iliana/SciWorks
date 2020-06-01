@@ -1,3 +1,14 @@
+.item {
+  position: relative;
+}
+
+.date {
+  position: absolute;
+  top: 15px;
+  right: 0;
+  color: #a4aba8;
+}
+
 .subauthor:not(:last-child):after {
   content: ',';
 }
