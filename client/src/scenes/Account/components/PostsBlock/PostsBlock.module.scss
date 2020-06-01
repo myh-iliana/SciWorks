@@ -1,3 +1,21 @@
 .subauthor:not(:last-child):after {
   content: ',';
 }
+
+.mainAuthor {
+  color: #00b5ad !important;
+
+  &:hover {
+    color: #00968e !important;
+  }
+}
+
+.desc {
+  max-height: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tags {
+  margin-top: 10px;
+}

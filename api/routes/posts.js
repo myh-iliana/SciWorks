@@ -14,12 +14,6 @@ function userIds(author, subauthors) {
     subauthorsString = subauthors.join();
     authorIds = [...subauthors, author];
 
-    // User.findAll({
-    //   where: { id: authorIds },
-    // }).then(users => {
-    //
-    // });
-
     return { ids: authorIds, subauthorsString };
   } else {
     authorIds = [author];
