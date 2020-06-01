@@ -16,10 +16,16 @@ export const routes = {
   register: '/auth/register',
   login: '/auth/login',
 
-  account: '/:username',
-  monographs: '/:username/monographs',
-  periodicity: '/:username/periodicity',
-  thesis: '/:username/thesis',
+  account: '/account/:username',
+
+  monographs: '/account/:username/monographs',
+  periodicity: '/account/:username/periodicity',
+  thesis: '/account/:username/thesis',
+
+  monographPost: '/monographs/:id',
+  periodicityPost: '/periodicity/:id',
+  thesisPost: '/thesis/:id',
+
   createPost: '/create',
 
   cathedra: '/:cathedraName',

@@ -8,7 +8,7 @@ import { getAccessToken, getRefreshToken } from '../api/utils';
 import { EntitiesStore } from './EntitiesStore';
 import { FilesStore } from './files/FilesStore';
 import { UsersStore } from './users/UsersStore';
-import { PostsStore } from './posts/PostsStore';
+import { UserPostsStore } from './posts/UserPostsStore';
 
 export const RootStore = t
   .model('RootStore', {
@@ -16,7 +16,7 @@ export const RootStore = t
 
     viewer: t.optional(ViewerStore, {}),
     users: t.optional(UsersStore, {}),
-    posts: t.optional(PostsStore, {}),
+    userPosts: t.optional(UserPostsStore, {}),
 
     cathedras: t.optional(CathedrasStore, {}),
 
@@ -35,6 +35,7 @@ export const RootStore = t
         if (token) {
           store.auth.setIsLoggedIn(true);
           const res = yield Api.Users.getMainUser();
+
           store.viewer.setViewer(res.data);
         } else {
           store.auth.setIsLoggedIn(false);

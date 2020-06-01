@@ -1,0 +1,3 @@
+.subauthor:not(:last-child):after {
+  content: ',';
+}

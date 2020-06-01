@@ -19,5 +19,5 @@ export const ThesisModel = t.model('ThesisModel', {
   isInternational: false,
   files: t.maybeNull(t.string),
 
-  // UserPosts: t.optional(t.frozen(), {}),
+  Users: t.optional(t.frozen(), []),
 });

@@ -3,6 +3,7 @@ import { CathedraModel } from '../cathedras/CathedraModel';
 import { ThesisModel } from '../posts/ThesisModel';
 import { MonographModel } from '../posts/MonographModel';
 import { PeriodicityModel } from '../posts/PeriodicityModel';
+import { UserPostsStore } from '../posts/UserPostsStore';
 
 export const UserModel = t.model('UserModel', {
   username: t.identifier,
@@ -16,10 +17,6 @@ export const UserModel = t.model('UserModel', {
   updatedAt: t.string,
   avatar: t.maybeNull(t.string),
   bio: t.maybeNull(t.string),
-
-  Monographs: t.optional(t.array(t.union(MonographModel, t.reference(MonographModel))), []),
-  Periodicities: t.optional(t.array(t.union(PeriodicityModel, t.reference(PeriodicityModel))), []),
-  Theses: t.optional(t.array(t.union(ThesisModel, t.reference(ThesisModel))), []),
 
   cathedra: t.maybeNull(
     t.reference(CathedraModel, {

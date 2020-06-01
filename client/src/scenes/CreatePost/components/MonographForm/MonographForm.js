@@ -34,7 +34,7 @@ const MonographForm = ({ onSubmit }) => {
   };
 
   const store = useStore();
-  const { isLoading, isError } = store.posts.addMonograph;
+  const { isLoading, isError } = store.userPosts.addMonograph;
 
   return (
     <Formik {...formikProps}>

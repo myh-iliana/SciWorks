@@ -4,6 +4,7 @@ const router = express.Router();
 const Monograph = require('../models').Monograph;
 const Thesis = require('../models').Thesis;
 const Periodicity = require('../models').Periodicity;
+const User = require('../models').User;
 const authenticateToken = require('../utils');
 
 function userIds(author, subauthors) {
@@ -12,6 +13,12 @@ function userIds(author, subauthors) {
   if (subauthors) {
     subauthorsString = subauthors.join();
     authorIds = [...subauthors, author];
+
+    // User.findAll({
+    //   where: { id: authorIds },
+    // }).then(users => {
+    //
+    // });
 
     return { ids: authorIds, subauthorsString };
   } else {

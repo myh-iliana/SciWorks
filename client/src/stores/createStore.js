@@ -11,7 +11,7 @@ export const createStore = () => {
   persist.rehydrate();
 
   onSnapshot(root, (snapshot) => {
-    console.log(JSON.stringify(snapshot, null, 2));
+    // console.log(JSON.stringify(snapshot.viewer, null, 2));
   });
 
   return root;

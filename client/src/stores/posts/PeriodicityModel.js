@@ -19,5 +19,5 @@ export const PeriodicityModel = t.model('PeriodicityModel', {
   isElectronic: false,
   files: t.maybeNull(t.string),
 
-  // UserPosts: t.optional(t.frozen(), {}),
+  Users: t.optional(t.frozen(), []),
 });

@@ -37,7 +37,7 @@ const ThesisForm = ({ onSubmit }) => {
   };
 
   const store = useStore();
-  const { isLoading, isError } = store.posts.addThesis;
+  const { isLoading, isError } = store.userPosts.addThesis;
 
   return (
     <Formik {...formikProps}>

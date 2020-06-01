@@ -100,6 +100,10 @@ export const Cathedra = {
 };
 
 export const Users = {
+  getUserPosts(username) {
+    return axios.get(`/api/users/${username}/posts`);
+  },
+
   getMainUser() {
     return axios.get('/api/users/account');
   },

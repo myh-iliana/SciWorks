@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { generatePath, NavLink, useParams } from 'react-router-dom';
+import { generatePath, NavLink, Route, useParams } from 'react-router-dom';
 import { Container, Menu, Segment } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
 
@@ -8,6 +8,7 @@ import { useStore } from '../../stores/createStore';
 import { useUserCollection } from '../../stores/users/usersCollection';
 import { routes } from '../routes';
 import User from './components/User/User';
+import PostsBlock from './components/PostsBlock/PostsBlock';
 
 const Account = () => {
   const params = useParams();
@@ -16,11 +17,15 @@ const Account = () => {
   const isViewer = store.viewer?.user?.username === params.username;
   const { collection, getUser } = useUserCollection();
   const user = isViewer ? store.viewer.user : collection.get(params.username);
+  const { fetchUserPosts, periodic, thesis, monographs } = store.userPosts;
+  const postsLoaded = !fetchUserPosts.isLoading && !fetchUserPosts.isError;
 
   useEffect(() => {
     if (params.username !== store.viewer.user.username) {
       getUser.run(params.username);
     }
+
+    fetchUserPosts.run(params.username);
   }, [params.username]);
 
   return (
@@ -50,6 +55,23 @@ const Account = () => {
               />
             </Menu>
           )}
+
+          <Route
+            path={routes.periodicity}
+            render={() =>
+              postsLoaded && <PostsBlock items={periodic} path={routes.periodicityPost} />
+            }
+          />
+          <Route
+            path={routes.monographs}
+            render={() =>
+              postsLoaded && <PostsBlock items={monographs} path={routes.monographPost} />
+            }
+          />
+          <Route
+            path={routes.thesis}
+            render={() => postsLoaded && <PostsBlock items={thesis} path={routes.thesisPost} />}
+          />
         </Segment>
       </Container>
     </div>

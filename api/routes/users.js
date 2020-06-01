@@ -8,13 +8,36 @@ const User = require('../models').User;
 const Monograph = require('../models').Monograph;
 const Periodicity = require('../models').Periodicity;
 const Thesis = require('../models').Thesis;
+const includePostsWithUsers = [
+  {
+    model: Periodicity,
+    include: [{
+      model: User,
+      attributes: ['username', 'id']
+    }],
+  },
+  {
+    model: Monograph,
+    include: [{
+      model: User,
+      attributes: ['username', 'id']
+    }],
+  },
+  {
+    model: Thesis,
+    include: [{
+      model: User,
+      attributes: ['username', 'id']
+    }],
+  }
+];
 
 /* GET main user. */
 router.get('/account', authenticateToken, function (req, res, next) {
   User.findOne({
     where: { id: req.user.id },
     attributes: { exclude: ["password"] },
-    include: [ Monograph, Periodicity, Thesis ]
+    include: includePostsWithUsers,
   })
     .then(async (user) => {
       if (user === null) res.status(404).send('Cannot find user');
@@ -29,7 +52,20 @@ router.get('/:username', function (req, res, next) {
   User.findOne({
     where: { username: req.params.username },
     attributes: { exclude: ["password"] },
-    include: [ Monograph, Periodicity, Thesis ],
+  })
+    .then(async (user) => {
+      if (user === null) res.status(404).send('Cannot find user');
+
+      res.send(user.get());
+    })
+    .catch((err) => console.log('========', err));
+});
+
+router.get('/:username/posts', function (req, res, next) {
+  User.findOne({
+    where: { username: req.params.username },
+    attributes: { exclude: ["password"] },
+    include: includePostsWithUsers,
   })
     .then(async (user) => {
       if (user === null) res.status(404).send('Cannot find user');
