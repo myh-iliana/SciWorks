@@ -39,10 +39,11 @@ export const Record = ({ post, label, field, maybeNull = false }) => {
   );
 };
 
-const Post = ({ children, useCollection }) => {
-  const [files, setFiles] = useState([]);
+const Post = ({ children, useCollection, apiMethodForPostEdit }) => {
+  const [files, setFiles] = useState(null);
+  const [editMode, setEditMode] = useState(false);
   const params = useParams();
-  const { collection, getById } = useCollection();
+  const { collection, getById, editFiles } = useCollection();
   const post = collection.get(params.id);
   const store = useStore();
   const addImageRef = React.createRef();
@@ -57,9 +58,14 @@ const Post = ({ children, useCollection }) => {
 
   const handleFileChange = (e) => setFiles(e.target.files);
   const handleFilesSubmit = () => {
-    store.files.upload.run(files);
+    editFiles.run(post.id, files, apiMethodForPostEdit);
+    setEditMode(false);
+    setFiles(null);
   };
-  const cancelFilesSubmit = () => setFiles([]);
+  const cancelFilesSubmit = () => {
+    setFiles(null);
+    setEditMode(false);
+  };
 
   return (
     <Container className={s.container}>
@@ -118,10 +124,10 @@ const Post = ({ children, useCollection }) => {
           {/*---------- MATERIALS ----------*/}
           <Divider horizontal>Materials</Divider>
           <div>
-            {isViewer && !post.files && (
+            {isViewer && (!post.files || editMode) && (
               <React.Fragment>
                 <div className={s.add_btn}>
-                  {files[0] ? (
+                  {files ? (
                     <Button.Group attached size="tiny">
                       <Button onClick={cancelFilesSubmit}>Cancel</Button>
                       <Button.Or />
@@ -140,7 +146,7 @@ const Post = ({ children, useCollection }) => {
                     />
                   )}
 
-                  {files[0] && (
+                  {files && (
                     <Header as="h5" className={s.file_attached}>
                       <Icon name="file archive" />
                       <Header.Content>{files[0].name}</Header.Content>
@@ -159,6 +165,23 @@ const Post = ({ children, useCollection }) => {
                   className="none"
                 />
               </React.Fragment>
+            )}
+
+            {post.files && !editMode && (
+              <div>
+                <Button
+                  content="Download materials"
+                  color={colors.main}
+                  icon="download"
+                  labelPosition="right"
+                  as="a"
+                  href={post.files}
+                />
+
+                <div className={s.icons}>
+                  <Icon name='edit' onClick={() => setEditMode(true)}>Edit</Icon>
+                </div>
+              </div>
             )}
           </div>
           <Divider />

@@ -1,5 +1,5 @@
 import * as Api from 'src/api';
-import { AsyncModel, createCollection } from '../utils';
+import { AsyncModel, createCollection, editFiles } from '../utils';
 import { useStore } from '../createStore';
 import { PeriodicityModel } from './PeriodicityModel';
 import { PeriodicityPost } from '../schemas';
@@ -12,7 +12,7 @@ export function usePeriodicityCollection() {
 
 export const periodicityCollection = createCollection(PeriodicityModel, {
   getById: AsyncModel(getById),
-  edit: AsyncModel(edit),
+  editFiles: AsyncModel(editFiles),
 });
 
 function getById(id) {
@@ -26,9 +26,3 @@ function getById(id) {
     }
   };
 }
-
-function edit(id, data) {
-  return async (flow, parent) => {
-  };
-}
-

@@ -3,10 +3,11 @@ import { observer } from 'mobx-react';
 
 import { useThesisCollection } from '../../stores/posts/thesisCollection';
 import Post, { Record } from '../../components/Post/Post';
+import * as Api from '../../api';
 
 const PeriodicPost = () => {
   return (
-    <Post useCollection={useThesisCollection}>
+    <Post useCollection={useThesisCollection} apiMethodForPostEdit={Api.Posts.editThesis}>
       <Record label="UDC" field="udc" />
       <Record label="ISSN" field="issn" maybeNull />
       <Record label="DOI" field="doi" maybeNull />

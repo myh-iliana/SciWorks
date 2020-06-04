@@ -149,6 +149,18 @@ export const Posts = {
   getMonograph(id) {
     return axios.get(`/api/posts/monograph/${id}`);
   },
+
+  editPeriodicity(data) {
+    return axios.put(`/api/posts/periodicity`, data);
+  },
+
+  editThesis(data) {
+    return axios.put(`/api/posts/thesis`, data);
+  },
+
+  editMonograph(data) {
+    return axios.put(`/api/posts/monograph`, data);
+  },
 };
 
 export const Files = {

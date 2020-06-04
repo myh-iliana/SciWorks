@@ -64,3 +64,11 @@
   bottom: 10px;
   left: 15px;
 }
+
+.icons {
+  margin-top: 5px;
+
+  > * {
+    cursor: pointer;
+  }
+}

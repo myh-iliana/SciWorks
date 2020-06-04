@@ -63,27 +63,16 @@ router.get('/monograph/:id', function (req, res, next) {
     });
 });
 
-router.put('/monograph/files', authenticateToken, function (req, res, next) {
-  const { files } = req.body;
+router.put('/monograph', authenticateToken, function (req, res, next) {
+  const { id, ...data } = req.body;
 
-  Monograph.update({ files }, {
-    where: { id: req.user.id },
-  })
-    .then((rows) => {
-      if (rows[0] > 0) {
-        return Monograph.findOne({ where: { id: req.user.id } });
-      }
-
-      return res.status(304).send({ error: 'Not edited' });
-    })
+  Monograph.findOne({ where: { id } })
     .then(post => {
-      if (post) {
-        return res.send(post.get());
-      }
+      if (!post) res.status(404).send('Post not found');
 
-      return res.status(404).send({ error: 'User not found' });
+      post.update(data);
     })
-    .catch((err) => console.log(err));
+    .catch(err => console.log('----', err));
 });
 // -------------------------------
 // ------------ Thesis -----------
@@ -127,27 +116,16 @@ router.get('/thesis/:id', function (req, res, next) {
     });
 });
 
-router.put('/thesis/files', authenticateToken, function (req, res, next) {
-  const { files } = req.body;
+router.put('/thesis', authenticateToken, function (req, res, next) {
+  const { id, ...data } = req.body;
 
-  Thesis.update({ files }, {
-    where: { id: req.user.id },
-  })
-    .then((rows) => {
-      if (rows[0] > 0) {
-        return Thesis.findOne({ where: { id: req.user.id } });
-      }
-
-      return res.status(304).send({ error: 'Not edited' });
-    })
+  Thesis.findOne({ where: { id } })
     .then(post => {
-      if (post) {
-        return res.send(post.get());
-      }
+      if (!post) res.status(404).send('Post not found');
 
-      return res.status(404).send({ error: 'User not found' });
+      post.update(data);
     })
-    .catch((err) => console.log(err));
+    .catch(err => console.log('----', err));
 });
 // -----------------------------
 // ---------- Periodicity ------
@@ -192,26 +170,15 @@ router.get('/periodicity/:id', function (req, res, next) {
 });
 
 router.put('/periodicity', authenticateToken, function (req, res, next) {
-  const { files } = req.body;
+  const { id, ...data } = req.body;
 
-  Periodicity.update({ ...req.body }, {
-    where: { id: req.user.id },
-  })
-    .then((rows) => {
-      if (rows[0] > 0) {
-        return Periodicity.findOne({ where: { id: req.user.id } });
-      }
-
-      return res.status(304).send({ error: 'Not edited' });
-    })
+  Periodicity.findOne({ where: { id } })
     .then(post => {
-      if (post) {
-        return res.send(post.get());
-      }
+      if (!post) res.status(404).send('Post not found');
 
-      return res.status(404).send({ error: 'User not found' });
+      post.update(data);
     })
-    .catch((err) => console.log(err));
+    .catch(err => console.log('----', err));
 });
 // ----------------------------
 

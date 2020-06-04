@@ -1,5 +1,5 @@
 import * as Api from 'src/api';
-import { AsyncModel, createCollection } from '../utils';
+import { AsyncModel, createCollection, editFiles } from '../utils';
 import { useStore } from '../createStore';
 import { ThesisPost } from '../schemas';
 import { ThesisModel } from './ThesisModel';
@@ -12,6 +12,7 @@ export function useThesisCollection() {
 
 export const thesisCollection = createCollection(ThesisModel, {
   getById: AsyncModel(getById),
+  editFiles: AsyncModel(editFiles),
 });
 
 function getById(id) {

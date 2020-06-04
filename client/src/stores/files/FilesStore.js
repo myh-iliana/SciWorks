@@ -12,6 +12,10 @@ export const FilesStore = t
     setItems(value) {
       store.items = value;
     },
+
+    getItems() {
+      return store.items[0];
+    }
   }));
 
 function upload(files) {
@@ -23,6 +27,5 @@ function upload(files) {
     const res = await Api.Files.upload(data);
 
     parent.setItems(res.data);
-    return res.data;
   };
 }

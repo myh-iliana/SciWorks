@@ -3,10 +3,11 @@ import { observer } from 'mobx-react';
 
 import { usePeriodicityCollection } from '../../stores/posts/periodicityCollection';
 import Post, { Record } from '../../components/Post/Post';
+import * as Api from '../../api';
 
 const PeriodicPost = () => {
   return (
-    <Post useCollection={usePeriodicityCollection}>
+    <Post useCollection={usePeriodicityCollection} apiMethodForPostEdit={Api.Posts.editPeriodicity}>
       <Record label="UDC" field="udc" />
       <Record label="ISSN" field="issn" maybeNull />
       <Record label="DOI" field="doi" maybeNull />

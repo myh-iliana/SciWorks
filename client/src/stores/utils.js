@@ -1,5 +1,13 @@
-import { applySnapshot, getParent, getRoot, onSnapshot, types as t } from 'mobx-state-tree';
+import {
+  applySnapshot,
+  getParent,
+  getRoot,
+  getSnapshot,
+  onSnapshot,
+  types as t,
+} from 'mobx-state-tree';
 import { normalize } from 'normalizr';
+import { apiPath } from '../components/App/App';
 
 export function AsyncModel(thunk, auto = true) {
   const model = t
@@ -110,4 +118,20 @@ export function createPersist(store) {
   }
 
   return { rehydrate };
+}
+
+export function editFiles(id, files, apiMethod) {
+  return async (flow, parent, root) => {
+    const post = parent.get(id);
+
+    root.files.upload.run(files).then(async () => {
+      const file = getSnapshot(root.files.items);
+
+      if (file[0]) {
+        post.setFiles(apiPath + file[0].filename);
+
+        await apiMethod({ id, files: apiPath + file[0].filename });
+      }
+    });
+  };
 }

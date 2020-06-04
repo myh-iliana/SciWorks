@@ -1,9 +1,5 @@
 import { getRoot, types as t } from 'mobx-state-tree';
 import { CathedraModel } from '../cathedras/CathedraModel';
-import { ThesisModel } from '../posts/ThesisModel';
-import { MonographModel } from '../posts/MonographModel';
-import { PeriodicityModel } from '../posts/PeriodicityModel';
-import { UserPostsStore } from '../posts/UserPostsStore';
 
 export const UserModel = t.model('UserModel', {
   username: t.identifier,

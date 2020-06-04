@@ -3,10 +3,11 @@ import { observer } from 'mobx-react';
 
 import { useMonographsCollection } from '../../stores/posts/monographsCollection';
 import Post, { Record } from '../../components/Post/Post';
+import * as Api from '../../api';
 
 const PeriodicPost = () => {
   return (
-    <Post useCollection={useMonographsCollection}>
+    <Post useCollection={useMonographsCollection} apiMethodForPostEdit={Api.Posts.editMonograph}>
       <Record label="Section" field="section" maybeNull />
       <Record label="ISBN" field="isbn" maybeNull />
       <Record label="DOI" field="doi" maybeNull />
