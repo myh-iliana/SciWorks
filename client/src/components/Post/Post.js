@@ -1,12 +1,23 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect, Fragment, useState } from 'react';
 import { generatePath, Link, useParams } from 'react-router-dom';
-import { Container, Header, Icon, Item, Label, Loader, Segment } from 'semantic-ui-react';
+import {
+  Button,
+  Container,
+  Divider,
+  Header,
+  Icon,
+  Label,
+  Loader,
+  Segment,
+} from 'semantic-ui-react';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 
 import { routes } from 'src/scenes/routes';
 
 import s from './Post.module.scss';
+import { colors } from '../App/App';
+import { useStore } from '../../stores/createStore';
 
 export const Record = ({ post, label, field, maybeNull = false }) => {
   if (maybeNull) {
@@ -29,9 +40,13 @@ export const Record = ({ post, label, field, maybeNull = false }) => {
 };
 
 const Post = ({ children, useCollection }) => {
+  const [files, setFiles] = useState([]);
   const params = useParams();
   const { collection, getById } = useCollection();
   const post = collection.get(params.id);
+  const store = useStore();
+  const addImageRef = React.createRef();
+  const isViewer = store.viewer?.user?.id === post?.author;
 
   useEffect(() => {
     getById.run(params.id);
@@ -39,6 +54,12 @@ const Post = ({ children, useCollection }) => {
 
   const created = post && new Date(post.createdAt);
   const updated = post && new Date(post.updatedAt);
+
+  const handleFileChange = (e) => setFiles(e.target.files);
+  const handleFilesSubmit = () => {
+    store.files.upload.run(files);
+  };
+  const cancelFilesSubmit = () => setFiles([]);
 
   return (
     <Container className={s.container}>
@@ -53,8 +74,12 @@ const Post = ({ children, useCollection }) => {
       {post && (
         <Segment padded className={s.segment}>
           <div className={s.date}>
-            <div>Created: {created.toLocaleDateString()} {created.toLocaleTimeString()}</div>
-            <div>Updated: {updated.toLocaleDateString()} {updated.toLocaleTimeString()}</div>
+            <div>
+              Created: {created.toLocaleDateString()} {created.toLocaleTimeString()}
+            </div>
+            <div>
+              Updated: {updated.toLocaleDateString()} {updated.toLocaleTimeString()}
+            </div>
           </div>
 
           <div className={s.header}>
@@ -73,6 +98,7 @@ const Post = ({ children, useCollection }) => {
           <div>
             {post.Users.map(({ id, username }) => (
               <Link
+                key={id}
                 className={id !== post.author ? s.subauthor : s.mainAuthor}
                 to={generatePath(routes.account, { username })}
               >
@@ -88,6 +114,55 @@ const Post = ({ children, useCollection }) => {
           </div>
 
           <p className={s.desc}>{post.annotations}</p>
+
+          {/*---------- MATERIALS ----------*/}
+          <Divider horizontal>Materials</Divider>
+          <div>
+            {isViewer && !post.files && (
+              <React.Fragment>
+                <div className={s.add_btn}>
+                  {files[0] ? (
+                    <Button.Group attached size="tiny">
+                      <Button onClick={cancelFilesSubmit}>Cancel</Button>
+                      <Button.Or />
+                      <Button onClick={handleFilesSubmit} positive>
+                        Save
+                      </Button>
+                    </Button.Group>
+                  ) : (
+                    <Button
+                      icon="add"
+                      size="tiny"
+                      content="Add files"
+                      color={colors.second}
+                      labelPosition="left"
+                      onClick={() => addImageRef.current.click()}
+                    />
+                  )}
+
+                  {files[0] && (
+                    <Header as="h5" className={s.file_attached}>
+                      <Icon name="file archive" />
+                      <Header.Content>{files[0].name}</Header.Content>
+                    </Header>
+                  )}
+                </div>
+                <Header as="h6" color="red" className={s.file_attached}>
+                  Attach .zip, .rar or .7z file
+                </Header>
+                <input
+                  accept=".zip, .rar, .7z"
+                  onChange={handleFileChange}
+                  ref={addImageRef}
+                  type="file"
+                  name="files"
+                  className="none"
+                />
+              </React.Fragment>
+            )}
+          </div>
+          <Divider />
+          {/*-------------------------------*/}
         </Segment>
       )}
     </Container>

@@ -50,6 +50,15 @@
   padding-bottom: 70px !important;
 }
 
+.add_btn {
+  display: flex;
+  align-items: center;
+}
+
+.file_attached {
+  margin-top: 2px !important;
+}
+
 .date {
   position: absolute;
   bottom: 10px;

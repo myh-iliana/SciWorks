@@ -12,6 +12,7 @@ export function usePeriodicityCollection() {
 
 export const periodicityCollection = createCollection(PeriodicityModel, {
   getById: AsyncModel(getById),
+  edit: AsyncModel(edit),
 });
 
 function getById(id) {
@@ -23,6 +24,11 @@ function getById(id) {
 
       flow.merge(res.data, PeriodicityPost);
     }
+  };
+}
+
+function edit(id, data) {
+  return async (flow, parent) => {
   };
 }
 

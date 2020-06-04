@@ -23,5 +23,6 @@ function upload(files) {
     const res = await Api.Files.upload(data);
 
     parent.setItems(res.data);
+    return res.data;
   };
 }
