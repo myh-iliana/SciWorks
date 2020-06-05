@@ -11,6 +11,7 @@ const PeriodicPost = () => {
       useCollection={useThesisCollection}
       apiMethodForDelete={Api.Posts.deleteThesis}
       apiMethodForPostEdit={Api.Posts.editThesis}
+      type='thesis'
     >
       <Record label="UDC" field="udc" />
       <Record label="ISSN" field="issn" maybeNull />

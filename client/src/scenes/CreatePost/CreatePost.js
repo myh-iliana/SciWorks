@@ -4,11 +4,11 @@ import { Option } from 'semantic-react';
 import { observer } from 'mobx-react';
 
 import s from './CreatePost.module.scss';
-import SelectField from '../../components/Form/SelectField/SelectField';
-import PeriodicityForm from './components/PeriodicityForm/PeriodicityForm';
-import ThesisForm from './components/ThesisForm/ThesisForm';
 import { useStore } from '../../stores/createStore';
+import SelectField from '../../components/Form/SelectField/SelectField';
 import MonographForm from '../../components/PostForms/MonographForm';
+import PeriodicityForm from '../../components/PostForms/PeriodicityForm';
+import ThesisForm from '../../components/PostForms/ThesisForm';
 
 const CreatePost = () => {
   const store = useStore();

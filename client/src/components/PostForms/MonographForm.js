@@ -10,22 +10,24 @@ import { colors } from '../App/App';
 import UsersSelect from '../Form/UsersSelect/UsersSelect';
 import Field from '../Form/Field/Field';
 
-const MonographForm = ({ onSubmit, editMode = false }) => {
+const MonographForm = ({ onSubmit, editMode = false, post = {} }) => {
+  const subauthors = post.subauthors ? post.subauthors.split(',').map(item => +item) : null;
+
   const formikProps = {
     initialValues: {
-      title: '',
-      section: null,
-      monographPages: '',
-      printPages: '',
-      pages: '',
-      year: '',
-      annotations: null,
-      isbn: null,
-      doi: null,
-      isEuLanguage: false,
-      files: null,
-      author: null,
-      subauthors: null,
+      title: post?.title || '',
+      section: post?.section || null,
+      monographPages: post?.monographPages || '',
+      printPages: post?.printPages || '',
+      pages: post?.pages || '',
+      year: post?.year || '',
+      annotations: post?.annotations || null,
+      isbn: post?.isbn || null,
+      doi: post?.doi || null,
+      isEuLanguage: post?.isEuLanguage || false,
+      files: post?.files || null,
+      author: post?.author || null,
+      subauthors: post?.subauthors || null,
     },
 
     validationSchema: Yup.object().shape({}),
@@ -49,7 +51,7 @@ const MonographForm = ({ onSubmit, editMode = false }) => {
           >
             {/*{<Message error header="Log in failed" content={errorMsg} />}*/}
 
-            <UsersSelect setFieldValue={setFieldValue} />
+            <UsersSelect setFieldValue={setFieldValue} defaultValue={subauthors} />
             <Field required label="Title" name="title" placeholder="Monograph title" />
             <Field label="Section" name="section" placeholder="Section name" />
             <Form.Group widths={2}>
@@ -71,7 +73,7 @@ const MonographForm = ({ onSubmit, editMode = false }) => {
             />
 
             <Button type="submit" color={colors.main}>
-              Create
+              { editMode ? 'Update' : 'Create' }
             </Button>
           </Form>
         );
@@ -83,6 +85,7 @@ const MonographForm = ({ onSubmit, editMode = false }) => {
 MonographForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   editMode: PropTypes.bool,
+  post: PropTypes. object,
 };
 
 export default observer(MonographForm);

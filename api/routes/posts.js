@@ -64,13 +64,18 @@ router.get('/monograph/:id', function (req, res, next) {
 });
 
 router.put('/monograph/:id', authenticateToken, function (req, res, next) {
-  const data = req.body;
+  const { subauthors, author, ...rest } = req.body;
+
+  const { ids, subauthorsString } = userIds(author, subauthors);
 
   Monograph.findOne({ where: { id: req.params.id } })
     .then(post => {
       if (!post) res.status(404).send('Post not found');
 
-      post.update(data);
+      post.setUsers(ids);
+      post.update({ subauthors: subauthorsString, author, ...rest });
+
+      res.status(200).send(post);
     })
     .catch(err => console.log('----', err));
 });
@@ -123,13 +128,18 @@ router.get('/thesis/:id', function (req, res, next) {
 });
 
 router.put('/thesis/:id', authenticateToken, function (req, res, next) {
-  const data = req.body;
+  const { subauthors, author, ...rest } = req.body;
+
+  const { ids, subauthorsString } = userIds(author, subauthors);
 
   Thesis.findOne({ where: { id: req.params.id } })
     .then(post => {
       if (!post) res.status(404).send('Post not found');
 
-      post.update(data);
+      post.setUsers(ids);
+      post.update({ subauthors: subauthorsString, author, ...rest });
+
+      res.status(200).send(post);
     })
     .catch(err => console.log('----', err));
 });
@@ -182,13 +192,17 @@ router.get('/periodicity/:id', function (req, res, next) {
 });
 
 router.put('/periodicity/:id', authenticateToken, function (req, res, next) {
-  const data = req.body;
+  const { subauthors, author, ...rest } = req.body;
+
+  const { ids, subauthorsString } = userIds(author, subauthors);
 
   Periodicity.findOne({ where: { id: req.params.id } })
     .then(post => {
       if (!post) res.status(404).send('Post not found');
 
-      post.update(data);
+      post.setUsers(ids);
+      post.update({ subauthors: subauthorsString, author, ...rest });
+      res.status(200).send(post);
     })
     .catch(err => console.log('----', err));
 });

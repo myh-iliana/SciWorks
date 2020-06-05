@@ -11,6 +11,7 @@ import CreatePost from './CreatePost/CreatePost';
 import PeriodicPost from './PeriodicPost/PeriodicPost';
 import MonographPost from './MonographPost/MonographPost';
 import ThesisPost from './ThesisPost/ThesisPost';
+import EditPost from './EditPost/EditPost';
 
 export const routes = {
   home: '/',
@@ -30,6 +31,7 @@ export const routes = {
   thesisPost: '/thesis/:id',
 
   createPost: '/create',
+  editPost: '/edit_post/:type/:postId',
 
   cathedra: '/:cathedraName',
 };
@@ -57,6 +59,7 @@ const Router = () => {
         <Route exact path={routes.home} component={Home} />
         <Route path={routes.auth} component={Auth} />
         <PrivateRouter exact path={routes.createPost} component={CreatePost} />
+        <PrivateRouter exact path={routes.editPost} component={EditPost} />
         <PrivateRouter path={routes.account} component={Account} />
         <Route path={routes.periodicityPost} component={PeriodicPost} />
         <Route path={routes.monographPost} component={MonographPost} />

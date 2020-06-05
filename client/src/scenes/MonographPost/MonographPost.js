@@ -11,6 +11,7 @@ const PeriodicPost = () => {
       useCollection={useMonographsCollection}
       apiMethodForDelete={Api.Posts.deleteMonograph}
       apiMethodForPostEdit={Api.Posts.editMonograph}
+      type='monograph'
     >
       <Record label="Section" field="section" maybeNull />
       <Record label="ISBN" field="isbn" maybeNull />

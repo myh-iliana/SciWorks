@@ -11,6 +11,7 @@ const PeriodicPost = () => {
       useCollection={usePeriodicityCollection}
       apiMethodForDelete={Api.Posts.deletePeriodicity}
       apiMethodForPostEdit={Api.Posts.editPeriodicity}
+      type='periodicity'
     >
       <Record label="UDC" field="udc" />
       <Record label="ISSN" field="issn" maybeNull />

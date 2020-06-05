@@ -1,34 +1,36 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Button, Form, Message } from 'semantic-ui-react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { Button, Form } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-import Field from '../../../../components/Form/Field/Field';
-import { colors } from '../../../../components/App/App';
-import UsersSelect from '../../../../components/Form/UsersSelect/UsersSelect';
-import { useStore } from '../../../../stores/createStore';
+import { useStore } from '../../stores/createStore';
+import { colors } from '../App/App';
+import UsersSelect from '../Form/UsersSelect/UsersSelect';
+import Field from '../Form/Field/Field';
 
-const PeriodicityForm = ({ onSubmit }) => {
+const PeriodicityForm = ({ onSubmit, editMode = false, post = {} }) => {
+  const subauthors = post.subauthors ? post.subauthors.split(',').map(item => +item) : null;
+
   const formikProps = {
     initialValues: {
-      title: '',
-      udc: '',
-      journal: '',
-      issueNumber: '',
-      journalPages: '',
-      pages: '',
-      issn: null,
-      doi: null,
-      annotations: null,
-      isScopusAndWS: false,
-      isScientometrics: false,
-      isProfessional: false,
-      isElectronic: false,
-      files: null,
-      author: null,
-      subauthors: null,
+      title: post?.title || '',
+      udc: post?.udc || '',
+      journal: post?.journal || '',
+      issueNumber: post?.issueNumber || '',
+      journalPages: post?.journalPages || '',
+      pages: post?.pages || '',
+      issn: post?.issn || null,
+      doi: post?.doi || null,
+      annotations: post?.annotations || null,
+      isScopusAndWS: post?.isScopusAndWS || false,
+      isScientometrics: post?.isScientometrics || false,
+      isProfessional: post?.isProfessional || false,
+      isElectronic: post?.isElectronic || false,
+      files: post?.files || null,
+      author: post?.author || null,
+      subauthors: subauthors || null,
     },
 
     validationSchema: Yup.object().shape({}),
@@ -52,7 +54,7 @@ const PeriodicityForm = ({ onSubmit }) => {
           >
             {/*{<Message error header="Log in failed" content={errorMsg} />}*/}
 
-            <UsersSelect setFieldValue={setFieldValue} />
+            <UsersSelect setFieldValue={setFieldValue} defaultValue={subauthors} />
             <Field required label="Title" name="title" placeholder="Periodicity title" />
             <Field required label="Journal" name="journal" placeholder="American Economic Journal" />
             <Form.Group widths={3}>
@@ -92,7 +94,7 @@ const PeriodicityForm = ({ onSubmit }) => {
             />
 
             <Button type="submit" color={colors.main}>
-              Create
+              { editMode ? 'Update' : 'Create' }
             </Button>
           </Form>
         );
@@ -103,7 +105,8 @@ const PeriodicityForm = ({ onSubmit }) => {
 
 PeriodicityForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  authorId: PropTypes.number,
+  editMode: PropTypes.bool,
+  post: PropTypes. object,
 };
 
 export default observer(PeriodicityForm);

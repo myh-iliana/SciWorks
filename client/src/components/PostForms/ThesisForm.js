@@ -1,34 +1,36 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Button, Form, Message } from 'semantic-ui-react';
+import { Button, Form } from 'semantic-ui-react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 
-import Field from '../../../../components/Form/Field/Field';
-import { colors } from '../../../../components/App/App';
-import UsersSelect from '../../../../components/Form/UsersSelect/UsersSelect';
-import { useStore } from '../../../../stores/createStore';
+import { useStore } from '../../stores/createStore';
+import UsersSelect from '../Form/UsersSelect/UsersSelect';
+import Field from '../Form/Field/Field';
+import { colors } from '../App/App';
 
-const ThesisForm = ({ onSubmit }) => {
+const ThesisForm = ({ onSubmit, editMode = false, post = {} }) => {
+  const subauthors = post.subauthors ? post.subauthors.split(',').map(item => +item) : null;
+
   const formikProps = {
     initialValues: {
-      title: '',
-      udc: '',
-      conference: '',
-      city: '',
-      dates: '',
-      collectionPages: '',
-      pages: '',
-      issn: null,
-      doi: null,
-      annotations: null,
-      isScopusAndWS: false,
-      isScientometrics: false,
-      isInternational: false,
-      files: null,
-      author: null,
-      subauthors: null,
+      title: post?.title || '',
+      udc: post?.udc || '',
+      conference: post?.conference || '',
+      city: post?.city || '',
+      dates: post?.dates || '',
+      collectionPages: post?.collectionPages || '',
+      pages: post?.pages || '',
+      issn: post?.issn || null,
+      doi: post?.doi || null,
+      annotations: post?.annotations || null,
+      isScopusAndWS: post?.isScopusAndWS || false,
+      isScientometrics: post?.isScientometrics || false,
+      isInternational: post?.isInternational || false,
+      files: post?.files || null,
+      author: post?.author || null,
+      subauthors: post?.subauthors || null,
     },
 
     validationSchema: Yup.object().shape({}),
@@ -52,7 +54,7 @@ const ThesisForm = ({ onSubmit }) => {
           >
             {/*{<Message error header="Log in failed" content={errorMsg} />}*/}
 
-            <UsersSelect setFieldValue={setFieldValue} />
+            <UsersSelect setFieldValue={setFieldValue} defaultValue={subauthors} />
             <Field required label="Title" name="title" placeholder="Thesis title" />
             <Field required label="Conference" name="conference" placeholder="Florida High School Hockey Association Conference" />
             <Field required label="City" name="city" placeholder="Ivano-Frankivsk" />
@@ -87,7 +89,7 @@ const ThesisForm = ({ onSubmit }) => {
             />
 
             <Button type="submit" color={colors.main}>
-              Create
+              { editMode ? 'Update' : 'Create' }
             </Button>
           </Form>
         );
@@ -98,7 +100,8 @@ const ThesisForm = ({ onSubmit }) => {
 
 ThesisForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  authorId: PropTypes.number,
+  editMode: PropTypes.bool,
+  post: PropTypes. object,
 };
 
 export default observer(ThesisForm);

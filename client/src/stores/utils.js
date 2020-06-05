@@ -145,8 +145,11 @@ export function deletePost(id, apiMethod) {
 }
 
 export function editPost(id, data, apiMethod) {
-  return async (flow) => {
-    await apiMethod(id, data);
+  return async (flow, parent) => {
+    const post = parent.get(id);
+    const res = await apiMethod(id, data);
+
+    applySnapshot(post, res.data);
 
     flow.setRedirect(true);
   };

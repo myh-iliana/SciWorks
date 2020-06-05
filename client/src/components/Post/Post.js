@@ -1,5 +1,5 @@
 import React, { useEffect, Fragment, useState } from 'react';
-import { generatePath, Link, Redirect, useParams } from 'react-router-dom';
+import { generatePath, Link, Redirect, useParams, useHistory } from 'react-router-dom';
 import {
   Button,
   Container,
@@ -39,10 +39,11 @@ export const Record = ({ post, label, field, maybeNull = false }) => {
   );
 };
 
-const Post = ({ children, useCollection, apiMethodForPostEdit, apiMethodForDelete }) => {
+const Post = ({ children, useCollection, apiMethodForPostEdit, apiMethodForDelete, type }) => {
   const [files, setFiles] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const params = useParams();
+  const history = useHistory();
   const { collection, getById, editFiles, deleteById } = useCollection();
   const post = collection.get(params.id);
   const store = useStore();
@@ -56,12 +57,11 @@ const Post = ({ children, useCollection, apiMethodForPostEdit, apiMethodForDelet
   }, [params.id]);
 
   if (deleteById.redirect) {
-    return <Redirect to={generatePath(routes.account, { username: store.viewer.user.username })} />
+    return <Redirect to={generatePath(routes.account, { username: store.viewer.user.username })} />;
   }
 
   const handleFileChange = (e) => setFiles(e.target.files);
   const handlePostDelete = () => deleteById.run(post.id, apiMethodForDelete);
-  const handlePostEdit = (e) => {};
   const handleFilesSubmit = () => {
     editFiles.run(post.id, files, apiMethodForPostEdit);
     setEditMode(false);
@@ -175,7 +175,9 @@ const Post = ({ children, useCollection, apiMethodForPostEdit, apiMethodForDelet
                 />
 
                 <div className={s.icons}>
-                  <Icon name='edit' onClick={() => setEditMode(true)}>Edit files</Icon>
+                  <Icon name="edit" onClick={() => setEditMode(true)}>
+                    Edit files
+                  </Icon>
                 </div>
               </div>
             )}
@@ -194,8 +196,16 @@ const Post = ({ children, useCollection, apiMethodForPostEdit, apiMethodForDelet
             </div>
 
             <div className={s.action_icons}>
-              <Icon name='trash' size='large' color='red' onClick={handlePostDelete} />
-              <Icon name='edit' size='large' color='green' onClick={handlePostEdit} />
+              <Icon name="trash" size="large" color="red" onClick={handlePostDelete} />
+              <Icon
+                name="edit"
+                size="large"
+                color="green"
+                onClick={() => history.push(generatePath(routes.editPost, {
+                  type,
+                  postId: post.id,
+                }))}
+              />
             </div>
           </div>
         </Segment>

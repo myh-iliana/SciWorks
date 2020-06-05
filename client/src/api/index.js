@@ -150,15 +150,15 @@ export const Posts = {
     return axios.get(`/api/posts/monograph/${id}`);
   },
 
-  editPeriodicity({ id, ...data }) {
+  editPeriodicity(id, data) {
     return axios.put(`/api/posts/periodicity/${id}`, data);
   },
 
-  editThesis({ id, ...data }) {
+  editThesis(id, data) {
     return axios.put(`/api/posts/thesis/${id}`, data);
   },
 
-  editMonograph({ id, ...data }) {
+  editMonograph(id, data) {
     return axios.put(`/api/posts/monograph/${id}`, data);
   },
 
