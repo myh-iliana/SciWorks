@@ -135,3 +135,19 @@ export function editFiles(id, files, apiMethod) {
     });
   };
 }
+
+export function deletePost(id, apiMethod) {
+  return async (flow) => {
+    await apiMethod(id);
+
+    flow.setRedirect(true);
+  };
+}
+
+export function editPost(id, data, apiMethod) {
+  return async (flow) => {
+    await apiMethod(id, data);
+
+    flow.setRedirect(true);
+  };
+}

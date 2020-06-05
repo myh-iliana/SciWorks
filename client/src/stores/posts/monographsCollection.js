@@ -1,5 +1,5 @@
 import * as Api from 'src/api';
-import { AsyncModel, createCollection, editFiles } from '../utils';
+import { AsyncModel, createCollection, deletePost, editFiles } from '../utils';
 import { useStore } from '../createStore';
 import { MonographPost } from '../schemas';
 import { MonographModel } from './MonographModel';
@@ -13,6 +13,7 @@ export function useMonographsCollection() {
 export const monographsCollection = createCollection(MonographModel, {
   getById: AsyncModel(getById),
   editFiles: AsyncModel(editFiles),
+  deleteById: AsyncModel(deletePost),
 });
 
 function getById(id) {

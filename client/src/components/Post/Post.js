@@ -1,5 +1,5 @@
 import React, { useEffect, Fragment, useState } from 'react';
-import { generatePath, Link, useParams } from 'react-router-dom';
+import { generatePath, Link, Redirect, useParams } from 'react-router-dom';
 import {
   Button,
   Container,
@@ -39,24 +39,29 @@ export const Record = ({ post, label, field, maybeNull = false }) => {
   );
 };
 
-const Post = ({ children, useCollection, apiMethodForPostEdit }) => {
+const Post = ({ children, useCollection, apiMethodForPostEdit, apiMethodForDelete }) => {
   const [files, setFiles] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const params = useParams();
-  const { collection, getById, editFiles } = useCollection();
+  const { collection, getById, editFiles, deleteById } = useCollection();
   const post = collection.get(params.id);
   const store = useStore();
   const addImageRef = React.createRef();
   const isViewer = store.viewer?.user?.id === post?.author;
+  const created = post && new Date(post.createdAt);
+  const updated = post && new Date(post.updatedAt);
 
   useEffect(() => {
     getById.run(params.id);
   }, [params.id]);
 
-  const created = post && new Date(post.createdAt);
-  const updated = post && new Date(post.updatedAt);
+  if (deleteById.redirect) {
+    return <Redirect to={generatePath(routes.account, { username: store.viewer.user.username })} />
+  }
 
   const handleFileChange = (e) => setFiles(e.target.files);
+  const handlePostDelete = () => deleteById.run(post.id, apiMethodForDelete);
+  const handlePostEdit = (e) => {};
   const handleFilesSubmit = () => {
     editFiles.run(post.id, files, apiMethodForPostEdit);
     setEditMode(false);
@@ -78,16 +83,7 @@ const Post = ({ children, useCollection, apiMethodForPostEdit }) => {
       )}
 
       {post && (
-        <Segment padded className={s.segment}>
-          <div className={s.date}>
-            <div>
-              Created: {created.toLocaleDateString()} {created.toLocaleTimeString()}
-            </div>
-            <div>
-              Updated: {updated.toLocaleDateString()} {updated.toLocaleTimeString()}
-            </div>
-          </div>
-
+        <Segment padded className={s.segment} loading={deleteById.isLoading}>
           <div className={s.header}>
             <Header as="h1">{post.title}</Header>
 
@@ -179,13 +175,29 @@ const Post = ({ children, useCollection, apiMethodForPostEdit }) => {
                 />
 
                 <div className={s.icons}>
-                  <Icon name='edit' onClick={() => setEditMode(true)}>Edit</Icon>
+                  <Icon name='edit' onClick={() => setEditMode(true)}>Edit files</Icon>
                 </div>
               </div>
             )}
           </div>
           <Divider />
           {/*-------------------------------*/}
+
+          <div className={s.bottom}>
+            <div className={s.date}>
+              <div>
+                <span>Created:</span> {created.toLocaleDateString()} {created.toLocaleTimeString()}
+              </div>
+              <div>
+                <span>Updated:</span> {updated.toLocaleDateString()} {updated.toLocaleTimeString()}
+              </div>
+            </div>
+
+            <div className={s.action_icons}>
+              <Icon name='trash' size='large' color='red' onClick={handlePostDelete} />
+              <Icon name='edit' size='large' color='green' onClick={handlePostEdit} />
+            </div>
+          </div>
         </Segment>
       )}
     </Container>

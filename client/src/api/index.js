@@ -150,16 +150,28 @@ export const Posts = {
     return axios.get(`/api/posts/monograph/${id}`);
   },
 
-  editPeriodicity(data) {
-    return axios.put(`/api/posts/periodicity`, data);
+  editPeriodicity({ id, ...data }) {
+    return axios.put(`/api/posts/periodicity/${id}`, data);
   },
 
-  editThesis(data) {
-    return axios.put(`/api/posts/thesis`, data);
+  editThesis({ id, ...data }) {
+    return axios.put(`/api/posts/thesis/${id}`, data);
   },
 
-  editMonograph(data) {
-    return axios.put(`/api/posts/monograph`, data);
+  editMonograph({ id, ...data }) {
+    return axios.put(`/api/posts/monograph/${id}`, data);
+  },
+
+  deletePeriodicity(id) {
+    return axios.delete(`/api/posts/periodicity/${id}`);
+  },
+
+  deleteThesis(id) {
+    return axios.delete(`/api/posts/thesis/${id}`);
+  },
+
+  deleteMonograph(id) {
+    return axios.delete(`/api/posts/monograph/${id}`);
   },
 };
 

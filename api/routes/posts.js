@@ -63,15 +63,21 @@ router.get('/monograph/:id', function (req, res, next) {
     });
 });
 
-router.put('/monograph', authenticateToken, function (req, res, next) {
-  const { id, ...data } = req.body;
+router.put('/monograph/:id', authenticateToken, function (req, res, next) {
+  const data = req.body;
 
-  Monograph.findOne({ where: { id } })
+  Monograph.findOne({ where: { id: req.params.id } })
     .then(post => {
       if (!post) res.status(404).send('Post not found');
 
       post.update(data);
     })
+    .catch(err => console.log('----', err));
+});
+
+router.delete('/monograph/:id', authenticateToken, function (req, res, next) {
+  Monograph.destroy({ where: { id: req.params.id } })
+    .then(() => res.status(200).send('Deleted successfully'))
     .catch(err => console.log('----', err));
 });
 // -------------------------------
@@ -116,15 +122,21 @@ router.get('/thesis/:id', function (req, res, next) {
     });
 });
 
-router.put('/thesis', authenticateToken, function (req, res, next) {
-  const { id, ...data } = req.body;
+router.put('/thesis/:id', authenticateToken, function (req, res, next) {
+  const data = req.body;
 
-  Thesis.findOne({ where: { id } })
+  Thesis.findOne({ where: { id: req.params.id } })
     .then(post => {
       if (!post) res.status(404).send('Post not found');
 
       post.update(data);
     })
+    .catch(err => console.log('----', err));
+});
+
+router.delete('/thesis/:id', authenticateToken, function (req, res, next) {
+  Thesis.destroy({ where: { id: req.params.id } })
+    .then(() => res.status(200).send('Deleted successfully'))
     .catch(err => console.log('----', err));
 });
 // -----------------------------
@@ -169,15 +181,21 @@ router.get('/periodicity/:id', function (req, res, next) {
     });
 });
 
-router.put('/periodicity', authenticateToken, function (req, res, next) {
-  const { id, ...data } = req.body;
+router.put('/periodicity/:id', authenticateToken, function (req, res, next) {
+  const data = req.body;
 
-  Periodicity.findOne({ where: { id } })
+  Periodicity.findOne({ where: { id: req.params.id } })
     .then(post => {
       if (!post) res.status(404).send('Post not found');
 
       post.update(data);
     })
+    .catch(err => console.log('----', err));
+});
+
+router.delete('/periodicity/:id', authenticateToken, function (req, res, next) {
+  Periodicity.destroy({ where: { id: req.params.id } })
+    .then(() => res.status(200).send('Deleted successfully'))
     .catch(err => console.log('----', err));
 });
 // ----------------------------

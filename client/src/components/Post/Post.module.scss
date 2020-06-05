@@ -46,8 +46,6 @@
 }
 
 .segment {
-  position: relative;
-  padding-bottom: 70px !important;
 }
 
 .add_btn {
@@ -59,10 +57,13 @@
   margin-top: 2px !important;
 }
 
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
 .date {
-  position: absolute;
-  bottom: 10px;
-  left: 15px;
 }
 
 .icons {
@@ -70,5 +71,14 @@
 
   > * {
     cursor: pointer;
+  }
+}
+
+.action_icons {
+  > * {
+    cursor: pointer;
+    &:hover {
+      opacity: 0.7;
+    }
   }
 }

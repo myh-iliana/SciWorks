@@ -7,7 +7,11 @@ import * as Api from '../../api';
 
 const PeriodicPost = () => {
   return (
-    <Post useCollection={usePeriodicityCollection} apiMethodForPostEdit={Api.Posts.editPeriodicity}>
+    <Post
+      useCollection={usePeriodicityCollection}
+      apiMethodForDelete={Api.Posts.deletePeriodicity}
+      apiMethodForPostEdit={Api.Posts.editPeriodicity}
+    >
       <Record label="UDC" field="udc" />
       <Record label="ISSN" field="issn" maybeNull />
       <Record label="DOI" field="doi" maybeNull />

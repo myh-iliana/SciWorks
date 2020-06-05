@@ -1,14 +1,14 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Button, Form, Message } from 'semantic-ui-react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { Button, Form } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-import Field from '../../../../components/Form/Field/Field';
-import { colors } from '../../../../components/App/App';
-import UsersSelect from '../../../../components/Form/UsersSelect/UsersSelect';
-import { useStore } from '../../../../stores/createStore';
+import { useStore } from '../../stores/createStore';
+import { colors } from '../App/App';
+import UsersSelect from '../Form/UsersSelect/UsersSelect';
+import Field from '../Form/Field/Field';
 
 const MonographForm = ({ onSubmit, editMode = false }) => {
   const formikProps = {
