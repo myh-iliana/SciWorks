@@ -10,8 +10,8 @@ import { colors } from '../App/App';
 import UsersSelect from '../Form/UsersSelect/UsersSelect';
 import Field from '../Form/Field/Field';
 
-const PeriodicityForm = ({ onSubmit, editMode = false, post = {} }) => {
-  const subauthors = post.subauthors ? post.subauthors.split(',').map(item => +item) : null;
+const PeriodicityForm = ({ onSubmit, editMode = false, isAdmin, post = {} }) => {
+  const subauthors = post.subauthors ? post.subauthors.split(',').map((item) => +item) : null;
 
   const formikProps = {
     initialValues: {
@@ -54,9 +54,30 @@ const PeriodicityForm = ({ onSubmit, editMode = false, post = {} }) => {
           >
             {/*{<Message error header="Log in failed" content={errorMsg} />}*/}
 
-            <UsersSelect setFieldValue={setFieldValue} defaultValue={subauthors} />
+            {isAdmin && (
+              <UsersSelect
+                name="author"
+                setFieldValue={setFieldValue}
+                label="Select author"
+                placeholder="Select author"
+                multiple={false}
+              />
+            )}
+            <UsersSelect
+              name="subauthors"
+              setFieldValue={setFieldValue}
+              defaultValue={subauthors}
+              label="Select subauthors"
+              placeholder="Select subauthors"
+            />
+
             <Field required label="Title" name="title" placeholder="Periodicity title" />
-            <Field required label="Journal" name="journal" placeholder="American Economic Journal" />
+            <Field
+              required
+              label="Journal"
+              name="journal"
+              placeholder="American Economic Journal"
+            />
             <Form.Group widths={3}>
               <Field required label="Issue number" name="issueNumber" placeholder="34" />
               <Field required label="Journal pages" name="journalPages" placeholder="0" />
@@ -80,21 +101,11 @@ const PeriodicityForm = ({ onSubmit, editMode = false, post = {} }) => {
               name="isScientometrics"
               id="isScientometrics"
             />
-            <Field
-              type="checkbox"
-              label="Professional"
-              name="isProfessional"
-              id="isProfessional"
-            />
-            <Field
-              type="checkbox"
-              label="Electronic"
-              name="isElectronic"
-              id="isElectronic"
-            />
+            <Field type="checkbox" label="Professional" name="isProfessional" id="isProfessional" />
+            <Field type="checkbox" label="Electronic" name="isElectronic" id="isElectronic" />
 
             <Button type="submit" color={colors.main}>
-              { editMode ? 'Update' : 'Create' }
+              {editMode ? 'Update' : 'Create'}
             </Button>
           </Form>
         );
@@ -106,7 +117,8 @@ const PeriodicityForm = ({ onSubmit, editMode = false, post = {} }) => {
 PeriodicityForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   editMode: PropTypes.bool,
-  post: PropTypes. object,
+  post: PropTypes.object,
+  isAdmin: PropTypes.bool.isRequired,
 };
 
 export default observer(PeriodicityForm);

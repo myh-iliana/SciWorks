@@ -10,7 +10,7 @@ import UsersSelect from '../Form/UsersSelect/UsersSelect';
 import Field from '../Form/Field/Field';
 import { colors } from '../App/App';
 
-const ThesisForm = ({ onSubmit, editMode = false, post = {} }) => {
+const ThesisForm = ({ onSubmit, editMode = false, isAdmin, post = {} }) => {
   const subauthors = post.subauthors ? post.subauthors.split(',').map(item => +item) : null;
 
   const formikProps = {
@@ -54,7 +54,23 @@ const ThesisForm = ({ onSubmit, editMode = false, post = {} }) => {
           >
             {/*{<Message error header="Log in failed" content={errorMsg} />}*/}
 
-            <UsersSelect setFieldValue={setFieldValue} defaultValue={subauthors} />
+            {isAdmin && (
+              <UsersSelect
+                name="author"
+                setFieldValue={setFieldValue}
+                label="Select author"
+                placeholder="Select author"
+                multiple={false}
+              />
+            )}
+            <UsersSelect
+              name="subauthors"
+              setFieldValue={setFieldValue}
+              defaultValue={subauthors}
+              label="Select subauthors"
+              placeholder="Select subauthors"
+            />
+
             <Field required label="Title" name="title" placeholder="Thesis title" />
             <Field required label="Conference" name="conference" placeholder="Florida High School Hockey Association Conference" />
             <Field required label="City" name="city" placeholder="Ivano-Frankivsk" />
@@ -101,7 +117,8 @@ const ThesisForm = ({ onSubmit, editMode = false, post = {} }) => {
 ThesisForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   editMode: PropTypes.bool,
-  post: PropTypes. object,
+  post: PropTypes.object,
+  isAdmin: PropTypes.bool.isRequired,
 };
 
 export default observer(ThesisForm);

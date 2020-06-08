@@ -8,7 +8,7 @@ import { useStore } from '../../../stores/createStore';
 
 import s from './UsersSelect.module.scss';
 
-const UsersSelect = ({ setFieldValue, error, ...props }) => {
+const UsersSelect = ({ setFieldValue, error, multiple = true, ...props }) => {
   const store = useStore();
   const { fetchAll, items } = store.users;
 
@@ -20,11 +20,8 @@ const UsersSelect = ({ setFieldValue, error, ...props }) => {
     <SelectField
       oneValue={false}
       required
-      multiple
+      multiple={multiple}
       loading={fetchAll.isLoading}
-      label="Select subauthors"
-      name="subauthors"
-      placeholder="Select subauthors"
       setFieldValue={setFieldValue}
       error={error}
       {...props}

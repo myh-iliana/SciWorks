@@ -52,13 +52,13 @@ const CreatePost = () => {
           {/* --------- */}
 
           {selected === 'monograph' && (
-            <MonographForm onSubmit={submitForm} />
+            <MonographForm onSubmit={submitForm} isAdmin={user.isAdmin} />
           )}
           {selected === 'periodicity' && (
-            <PeriodicityForm onSubmit={submitForm} />
+            <PeriodicityForm onSubmit={submitForm} isAdmin={user.isAdmin} />
           )}
           {selected === 'thesis' && (
-            <ThesisForm onSubmit={submitForm} />
+            <ThesisForm onSubmit={submitForm} isAdmin={user.isAdmin} />
           )}
         </Segment>
       </div>
