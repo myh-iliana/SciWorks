@@ -123,6 +123,10 @@ export const Users = {
   changeAvatar(avatar) {
     return axios.put('/api/users/account/avatar', avatar);
   },
+
+  deleteById(id) {
+    return axios.delete(`/api/users/${id}`);
+  },
 };
 
 export const Posts = {

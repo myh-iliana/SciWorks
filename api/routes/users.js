@@ -159,10 +159,15 @@ router.get('/', function(req, res, next) {
     include: includePostsWithUsers,
   })
     .then(async users => {
-      console.log(users)
       res.send(users);
     })
     .catch(err => console.log('-----', err))
+});
+
+router.delete('/:id', authenticateToken, function (req, res, next) {
+  User.destroy({ where: { id: req.params.id } })
+    .then(() => res.status(200).send('Deleted successfully'))
+    .catch(err => console.log('----', err));
 });
 
 module.exports = router;

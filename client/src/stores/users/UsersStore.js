@@ -14,6 +14,10 @@ export const UsersStore = t
     setItems(value) {
       store.items = value;
     },
+
+    remove(key) {
+      store.items = store.items.filter(item => item.username !== key);
+    },
   }));
 
 function fetchAll() {

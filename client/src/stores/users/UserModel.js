@@ -36,12 +36,15 @@ export const UserModel = t.model('UserModel', {
       },
     }),
   ),
+
+  usernameString: t.string,
 })
   .preProcessSnapshot(snapshot => {
     if (snapshot) {
       return {
         ...snapshot,
         cathedra: snapshot.cathedra || snapshot.cathedraId,
+        usernameString: snapshot.username,
       };
     }
   });

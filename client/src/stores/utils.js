@@ -1,5 +1,5 @@
 import {
-  applySnapshot,
+  applySnapshot, destroy,
   getParent,
   getRoot,
   getSnapshot,
@@ -91,6 +91,12 @@ export function createCollection(ofModel, asyncModels = {}) {
       add(key, value) {
         store.collection.set(String(key), value);
       },
+
+      remove(key, root) {
+        const item = store.collection.get(String(key));
+        root.remove(key);
+        destroy(item);
+      }
     }));
 
   return t.optional(collection, {});
@@ -139,6 +145,8 @@ export function editFiles(id, files, apiMethod) {
 export function deletePost(id, apiMethod) {
   return async (flow) => {
     await apiMethod(id);
+
+    window.location.reload();
 
     flow.setRedirect(true);
   };
