@@ -1,5 +1,8 @@
 import { getRoot, types as t } from 'mobx-state-tree';
 import { CathedraModel } from '../cathedras/CathedraModel';
+import { PeriodicityModel } from '../posts/PeriodicityModel';
+import { MonographModel } from '../posts/MonographModel';
+import { ThesisModel } from '../posts/ThesisModel';
 
 export const UserModel = t.model('UserModel', {
   username: t.identifier,
@@ -13,6 +16,10 @@ export const UserModel = t.model('UserModel', {
   updatedAt: t.string,
   avatar: t.maybeNull(t.string),
   bio: t.maybeNull(t.string),
+
+  Periodicities: t.optional(t.array(PeriodicityModel), []),
+  Monographs: t.optional(t.array(MonographModel), []),
+  Theses: t.optional(t.array(ThesisModel), []),
 
   cathedra: t.maybeNull(
     t.reference(CathedraModel, {

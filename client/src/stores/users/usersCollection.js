@@ -3,6 +3,7 @@ import { UserModel } from './UserModel';
 import { AsyncModel, createCollection } from '../utils';
 import { useStore } from '../createStore';
 import { User } from '../schemas';
+import { applySnapshot } from 'mobx-state-tree';
 
 export function useUserCollection() {
   const store = useStore();
@@ -12,6 +13,7 @@ export function useUserCollection() {
 
 export const usersCollection = createCollection(UserModel, {
   getUser: AsyncModel(getUser),
+  edit: AsyncModel(edit),
 });
 
 function getUser(username) {
@@ -23,6 +25,16 @@ function getUser(username) {
 
       flow.merge(res.data, User);
     }
+  };
+}
+
+function edit(data) {
+  return async (flow, parent) => {
+    const user = parent.get(data.id);
+    const res = await Api.Users.edit(data);
+
+    applySnapshot(user, res.data);
+    flow.setRedirect(true);
   };
 }
 

@@ -181,6 +181,12 @@ const Post = ({ children, useCollection, apiMethodForPostEdit, apiMethodForDelet
                 </div>
               </div>
             )}
+
+            {!post.files && !editMode && (
+              <Header as='h4'>
+                No materials
+              </Header>
+            )}
           </div>
           <Divider />
           {/*-------------------------------*/}
@@ -195,18 +201,24 @@ const Post = ({ children, useCollection, apiMethodForPostEdit, apiMethodForDelet
               </div>
             </div>
 
-            <div className={s.action_icons}>
-              <Icon name="trash" size="large" color="red" onClick={handlePostDelete} />
-              <Icon
-                name="edit"
-                size="large"
-                color="green"
-                onClick={() => history.push(generatePath(routes.editPost, {
-                  type,
-                  postId: post.id,
-                }))}
-              />
-            </div>
+            {isViewer && (
+              <div className={s.action_icons}>
+                <Icon name="trash" size="large" color="red" onClick={handlePostDelete} />
+                <Icon
+                  name="edit"
+                  size="large"
+                  color="green"
+                  onClick={() =>
+                    history.push(
+                      generatePath(routes.editPost, {
+                        type,
+                        postId: post.id,
+                      }),
+                    )
+                  }
+                />
+              </div>
+            )}
           </div>
         </Segment>
       )}

@@ -22,6 +22,7 @@ const App = () => {
   useEffect(() => {
     store.bootstrap().then(() => setIsLoading(false));
   }, []);
+
   return (
     <div>
       <Provider value={store}>

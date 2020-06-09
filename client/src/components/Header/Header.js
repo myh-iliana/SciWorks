@@ -40,6 +40,7 @@ const Header = () => {
               <Dropdown.Menu>
                 <Dropdown.Item icon="user" as={Link} to={pathToAccount} text="Profile" />
                 <Dropdown.Item icon="add" as={Link} to={routes.createPost} text="New post" />
+                <Dropdown.Item icon="cog" as={Link} to={routes.adminPanel} text="Admin panel" />
                 <Dropdown.Divider />
                 <Dropdown.Item icon="sign out" text="Sign out" onClick={handleSignOut} />
               </Dropdown.Menu>

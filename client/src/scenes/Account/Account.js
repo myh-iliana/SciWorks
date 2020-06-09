@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { generatePath, NavLink, Route, useParams } from 'react-router-dom';
-import { Container, Menu, Segment } from 'semantic-ui-react';
+import { generatePath, NavLink, Redirect, Route, useParams } from 'react-router-dom';
+import { Container, Header, Menu, Segment } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
 
 import s from './Account.module.scss';
@@ -28,15 +28,20 @@ const Account = () => {
     fetchUserPosts.run(params.username);
   }, [params.username]);
 
+  if (store.viewer.edit.redirect) {
+    return <Redirect to={generatePath(routes.account, { username: store.viewer.user.username })} />;
+  }
+
   return (
     <div className={s.container}>
       <Container>
         <Segment padded loading={getUser.isLoading}>
+          {!user && <Header as='h3' textAlign='center'>No user found</Header>}
           {user && <User user={user} isViewer={isViewer} />}
         </Segment>
 
-        <Segment padded>
-          {user && (
+        {user && (
+          <Segment padded>
             <Menu widths={3}>
               <Menu.Item
                 name="Monographs"
@@ -54,25 +59,25 @@ const Account = () => {
                 to={generatePath(routes.thesis, { username: user.username })}
               />
             </Menu>
-          )}
 
-          <Route
-            path={routes.periodicity}
-            render={() =>
-              postsLoaded && <PostsBlock items={periodic} path={routes.periodicityPost} />
-            }
-          />
-          <Route
-            path={routes.monographs}
-            render={() =>
-              postsLoaded && <PostsBlock items={monographs} path={routes.monographPost} />
-            }
-          />
-          <Route
-            path={routes.thesis}
-            render={() => postsLoaded && <PostsBlock items={thesis} path={routes.thesisPost} />}
-          />
-        </Segment>
+            <Route
+              path={routes.periodicity}
+              render={() =>
+                postsLoaded && <PostsBlock items={periodic} path={routes.periodicityPost} />
+              }
+            />
+            <Route
+              path={routes.monographs}
+              render={() =>
+                postsLoaded && <PostsBlock items={monographs} path={routes.monographPost} />
+              }
+            />
+            <Route
+              path={routes.thesis}
+              render={() => postsLoaded && <PostsBlock items={thesis} path={routes.thesisPost} />}
+            />
+          </Segment>
+        )}
       </Container>
     </div>
   );

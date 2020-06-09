@@ -155,9 +155,11 @@ router.put('/account', [
 // GET all users
 router.get('/', function(req, res, next) {
   User.findAll({
-    attributes: { exclude: ["password"] }
+    attributes: { exclude: ["password"] },
+    include: includePostsWithUsers,
   })
     .then(async users => {
+      console.log(users)
       res.send(users);
     })
     .catch(err => console.log('-----', err))

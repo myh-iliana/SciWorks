@@ -12,6 +12,7 @@ import PeriodicPost from './PeriodicPost/PeriodicPost';
 import MonographPost from './MonographPost/MonographPost';
 import ThesisPost from './ThesisPost/ThesisPost';
 import EditPost from './EditPost/EditPost';
+import AdminPanel from './AdminPanel/AdminPanel';
 
 export const routes = {
   home: '/',
@@ -34,6 +35,8 @@ export const routes = {
   editPost: '/edit_post/:type/:postId',
 
   cathedra: '/:cathedraName',
+
+  adminPanel: '/admin',
 };
 
 export const PrivateRouter = observer(({ component: Component, ...props }) => {
@@ -64,6 +67,7 @@ const Router = () => {
         <Route path={routes.periodicityPost} component={PeriodicPost} />
         <Route path={routes.monographPost} component={MonographPost} />
         <Route path={routes.thesisPost} component={ThesisPost} />
+        <Route path={routes.adminPanel} component={AdminPanel} />
       </Switch>
     </BrowserRouter>
   );

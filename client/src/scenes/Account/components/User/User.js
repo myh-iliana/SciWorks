@@ -9,9 +9,9 @@ import { useStore } from '../../../../stores/createStore';
 import { routes } from '../../../routes';
 import { useCathedrasCollection } from '../../../../stores/cathedras/cathedrasCollection';
 import { apiPath, colors } from '../../../../components/App/App';
-import EditForm from '../EditForm/EditForm';
 
 import s from './User.module.scss';
+import EditForm from '../../../../components/EditForm/EditForm';
 
 const User = ({ user, isViewer }) => {
   const [image, setImage] = useState(null);

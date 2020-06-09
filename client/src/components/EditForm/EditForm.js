@@ -1,24 +1,28 @@
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
 import { Button, Form } from 'semantic-ui-react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 
-import Field from '../../../../components/Form/Field/Field';
-import { useStore } from '../../../../stores/createStore';
-import ErrorMessage from '../../../../components/Messages/ErrorMessage';
-import CathedrasSelect from '../../../../components/Form/CathedrasSelect/CathedrasSelect';
+import Field from '../Form/Field/Field';
+import { useStore } from '../../stores/createStore';
+import ErrorMessage from '../Messages/ErrorMessage';
+import CathedrasSelect from '../Form/CathedrasSelect/CathedrasSelect';
+import { useUserCollection } from '../../stores/users/usersCollection';
 
-const EditForm = ({ user, cancelEdit }) => {
-  const history = useHistory();
+const EditForm = ({ user, cancelEdit, isViewer = true }) => {
   const store = useStore();
+  const { edit } = useUserCollection();
   const { fullName, username, email, isTeacher, cathedraId, id, bio } = user;
-  const { isLoading, isError, errorMsg, redirect } = store.viewer.edit;
+  const { isLoading, isError, errorMsg } = store.viewer.edit;
 
-  const onSubmit = async (data) => {
-    await store.viewer.edit.run(data);
+  const onSubmit = (data) => {
+    if (isViewer) {
+      store.viewer.edit.run(data);
+    } else {
+      edit.run(data);
+    }
   };
 
   const formikProps = {
@@ -62,13 +66,6 @@ const EditForm = ({ user, cancelEdit }) => {
 
     onSubmit,
   };
-
-  useEffect(() => {
-    if (redirect) {
-      history.push(username);
-      cancelEdit();
-    }
-  }, [redirect]);
 
   return (
     <Formik {...formikProps}>
