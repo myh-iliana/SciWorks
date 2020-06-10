@@ -1,8 +1,12 @@
 import React from 'react';
-import { List, Loader } from 'semantic-ui-react';
+import { Header, List, Loader } from 'semantic-ui-react';
 import { generatePath, Link } from 'react-router-dom';
 
 const PostsList = ({ loading, items, path }) => {
+  if (!loading && !items[0]) {
+    return <Header as='h4' textAlign='center'>No posts</Header>
+  }
+
   return (
     <List divided relaxed>
       <Loader active={loading} />

@@ -13,7 +13,7 @@ const Header = () => {
   const history = useHistory();
   const store = useStore();
   const { isLoggedIn } = store.auth;
-  const { avatar } = isLoggedIn && store.viewer.user;
+  const { avatar, isAdmin } = isLoggedIn && store.viewer.user;
   const pathToAccount = isLoggedIn && generatePath(routes.account, {
     username: store.viewer.user.username,
   });
@@ -40,7 +40,7 @@ const Header = () => {
               <Dropdown.Menu>
                 <Dropdown.Item icon="user" as={Link} to={pathToAccount} text="Profile" />
                 <Dropdown.Item icon="add" as={Link} to={routes.createPost} text="New post" />
-                <Dropdown.Item icon="cog" as={Link} to={routes.adminPanel} text="Admin panel" />
+                {isAdmin && <Dropdown.Item icon="cog" as={Link} to={routes.adminPanel} text="Admin panel" />}
                 <Dropdown.Divider />
                 <Dropdown.Item icon="sign out" text="Sign out" onClick={handleSignOut} />
               </Dropdown.Menu>

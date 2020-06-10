@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Accordion, Icon, Loader } from 'semantic-ui-react';
+import { Accordion, Header, Icon, Loader } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
 
 import { useStore } from '../../../../stores/createStore';
@@ -20,6 +20,10 @@ const CathedrasList = () => {
   useEffect(() => {
     fetchAll.run();
   }, []);
+
+  if (!fetchAll.isLoading && !items[0]) {
+    return <Header as='h4' textAlign='center'>No cathedras</Header>
+  }
 
   return (
     <Accordion fluid styled>
