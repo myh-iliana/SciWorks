@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory, generatePath } from 'react-router-dom';
 import { Container, Segment, Message, Form } from 'semantic-ui-react';
 import { Option } from 'semantic-react';
 import { observer } from 'mobx-react';
@@ -9,9 +10,11 @@ import SelectField from '../../components/Form/SelectField/SelectField';
 import MonographForm from '../../components/PostForms/MonographForm';
 import PeriodicityForm from '../../components/PostForms/PeriodicityForm';
 import ThesisForm from '../../components/PostForms/ThesisForm';
+import { routes } from '../routes';
 
 const CreatePost = () => {
   const store = useStore();
+  const history = useHistory();
   const { addPeriodic, addThesis, addMonograph } = store.userPosts;
   const user = store.viewer.user;
   const DEFAULT_VALUE = 'periodicity';
@@ -22,11 +25,13 @@ const CreatePost = () => {
     { value: 'monograph', text: 'Monograph' },
   ];
 
-  const submitForm = ({ author, ...data }) => {
+  const submitForm = async ({ author, ...data }) => {
     author = author ? author : user.id;
     if (selected === 'periodicity') addPeriodic.run({author, ...data});
     if (selected === 'thesis') addThesis.run({author, ...data});
     if (selected === 'monograph') addMonograph.run({author, ...data});
+
+    history.push(generatePath(routes.account, { username: store.viewer.user.username }))
   };
 
   return (

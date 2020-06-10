@@ -5,7 +5,14 @@ import { AsyncModel } from '../utils';
 import { MonographModel } from './MonographModel';
 import { PeriodicityModel } from './PeriodicityModel';
 import { ThesisModel } from './ThesisModel';
-import { MonographCollection, PeriodicityCollection, ThesisCollection } from '../schemas';
+import {
+  MonographCollection,
+  MonographPost,
+  PeriodicityCollection,
+  PeriodicityPost,
+  ThesisCollection,
+  ThesisPost,
+} from '../schemas';
 
 export const UserPostsStore = t
   .model('UserPostsStore', {
@@ -48,23 +55,26 @@ function fetchUserPosts(username) {
 function addPeriodic(data) {
   return async (flow, parent) => {
     const res = await Api.Posts.createPeriodicity(data);
+    const id = flow.merge(res.data, PeriodicityPost);
 
-    parent.pushItem('periodic', res.data);
+    parent.pushItem('periodic', id);
   };
 }
 
 function addThesis(data) {
   return async (flow, parent) => {
     const res = await Api.Posts.createThesis(data);
+    const id = flow.merge(res.data, ThesisPost);
 
-    parent.pushItem('thesis', res.data);
+    parent.pushItem('thesis', id);
   };
 }
 
 function addMonograph(data) {
   return async (flow, parent) => {
     const res = await Api.Posts.createMonograph(data);
+    const id = flow.merge(res.data, MonographPost);
 
-    parent.pushItem('monographs', res.data);
+    parent.pushItem('monographs', id);
   };
 }

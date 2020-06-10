@@ -4,7 +4,7 @@ const Cathedra = require('../models').Cathedra;
 
 router.get('/', function (req, res, next) {
   Cathedra.findAll({
-    // include: 'workers'
+    include: 'workers'
   })
     .then((cathedras) => res.send(cathedras))
     .catch((err) => console.log(err));
@@ -12,7 +12,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/:id', function (req, res, next) {
   Cathedra.findOne({
-    // include: 'workers'
+    include: 'workers',
     where: { id: req.params.id }
   })
     .then((cathedra) => {

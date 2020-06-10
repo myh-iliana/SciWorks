@@ -23,7 +23,7 @@ const User = ({ user, isViewer }) => {
   const { avatar, fullName, username, email, cathedraId, cathedra, bio } = user;
   const cathedraCollection = useCathedrasCollection();
   const pathToCathedra =
-    cathedra && generatePath(routes.cathedra, { cathedraName: cathedra.name || 0 });
+    cathedra && generatePath(routes.cathedra, { name: cathedra.name || 0 });
   // -----
 
   useEffect(() => {

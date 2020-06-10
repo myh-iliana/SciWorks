@@ -40,7 +40,12 @@ router.post('/monograph', authenticateToken, function (req, res, next) {
 });
 
 router.get('/monograph/all', function (req, res, next) {
-  Monograph.findAll()
+  Monograph.findAll({
+    include: [{
+      model: User,
+      attributes: ['username', 'id'],
+    }]
+  })
     .then(post => res.send(post))
     .catch(err => {
       console.log('-----', err);
@@ -104,7 +109,12 @@ router.post('/thesis', authenticateToken, function (req, res, next) {
 });
 
 router.get('/thesis/all', function (req, res, next) {
-  Thesis.findAll()
+  Thesis.findAll({
+    include: [{
+      model: User,
+      attributes: ['username', 'id'],
+    }]
+  })
     .then(post => res.send(post))
     .catch(err => {
       console.log('-----', err);
@@ -168,7 +178,12 @@ router.post('/periodicity', authenticateToken, function (req, res, next) {
 });
 
 router.get('/periodicity/all', function (req, res, next) {
-  Periodicity.findAll()
+  Periodicity.findAll({
+    include: [{
+      model: User,
+      attributes: ['username', 'id'],
+    }]
+  })
     .then(post => res.send(post))
     .catch(err => {
       console.log('-----', err);

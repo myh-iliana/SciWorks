@@ -8,7 +8,7 @@ export const PeriodicityModel = t
     udc: t.string,
     title: t.string,
     journal: t.string,
-    issueNumber: t.number,
+    issueNumber: t.union(t.number, t.string),
     journalPages: t.string,
     pages: t.string,
     annotations: t.maybeNull(t.string),

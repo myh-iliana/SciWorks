@@ -62,6 +62,7 @@ const PostsList = ({ posts, apiMethodForDelete, postCollection, type }) => {
 const Users = () => {
   const store = useStore();
   const { fetchAll, items } = store.users;
+  const { fetchUserPosts, periodic, thesis, monographs } = store.userPosts;
   const [activeIndex, setActiveIndex] = useState();
   const [activeIndexPost, setActiveIndexPost] = useState();
   const [editUserMode, setEditUserMode] = useState({
@@ -95,17 +96,21 @@ const Users = () => {
     fetchAll.run();
   }, []);
 
+  useEffect(() => {
+    fetchUserPosts.run(activeIndex);
+  }, [activeIndex]);
+
   return (
     <Accordion fluid styled>
       <Loader active={fetchAll.isLoading} />
       {items.map((user) => {
         return (
           <React.Fragment>
-            <Accordion.Title active={activeIndex === user.id} index={user.id} onClick={handleClick}>
+            <Accordion.Title active={activeIndex === user.username} index={user.username} onClick={handleClick}>
               <Icon name="dropdown" />
               {user.usernameString}
             </Accordion.Title>
-            <Accordion.Content active={activeIndex === user.id}>
+            <Accordion.Content active={activeIndex === user.username}>
               {!editUserMode.show && (
                 <React.Fragment>
                   <Icon
@@ -137,7 +142,7 @@ const Users = () => {
                 <Accordion.Content active={activeIndexPost === 1}>
                   <Item.Group divided>
                     <PostsList
-                      posts={user.Monographs}
+                      posts={monographs}
                       apiMethodForEdit={Api.Posts.deleteMonograph}
                       apiMethodForDelete={Api.Posts.editMonograph}
                       postCollection={monographCollection}
@@ -153,7 +158,7 @@ const Users = () => {
                 <Accordion.Content active={activeIndexPost === 2}>
                   <Item.Group divided>
                     <PostsList
-                      posts={user.Periodicities}
+                      posts={periodic}
                       apiMethodForEdit={Api.Posts.deletePeriodicity}
                       apiMethodForDelete={Api.Posts.editPeriodicity}
                       postCollection={periodicityCollection}
@@ -169,7 +174,7 @@ const Users = () => {
                 <Accordion.Content active={activeIndexPost === 3}>
                   <Item.Group divided>
                     <PostsList
-                      posts={user.Theses}
+                      posts={thesis}
                       apiMethodForEdit={Api.Posts.deleteThesis}
                       apiMethodForDelete={Api.Posts.editThesis}
                       postCollection={thesisCollection}

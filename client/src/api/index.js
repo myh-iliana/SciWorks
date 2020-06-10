@@ -154,6 +154,18 @@ export const Posts = {
     return axios.get(`/api/posts/monograph/${id}`);
   },
 
+  getPeriodicityAll() {
+    return axios.get(`/api/posts/periodicity/all`);
+  },
+
+  getThesisAll() {
+    return axios.get(`/api/posts/thesis/all`);
+  },
+
+  getMonographAll() {
+    return axios.get(`/api/posts/monograph/all`);
+  },
+
   editPeriodicity(id, data) {
     return axios.put(`/api/posts/periodicity/${id}`, data);
   },

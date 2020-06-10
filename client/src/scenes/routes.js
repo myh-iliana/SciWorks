@@ -34,7 +34,7 @@ export const routes = {
   createPost: '/create',
   editPost: '/edit_post/:type/:postId',
 
-  cathedra: '/:cathedraName',
+  cathedra: '/:name',
 
   adminPanel: '/admin',
 };

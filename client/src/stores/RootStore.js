@@ -9,6 +9,7 @@ import { EntitiesStore } from './EntitiesStore';
 import { FilesStore } from './files/FilesStore';
 import { UsersStore } from './users/UsersStore';
 import { UserPostsStore } from './posts/UserPostsStore';
+import { PostsStore } from './posts/PostsStore';
 
 export const RootStore = t
   .model('RootStore', {
@@ -17,6 +18,7 @@ export const RootStore = t
     viewer: t.optional(ViewerStore, {}),
     users: t.optional(UsersStore, {}),
     userPosts: t.optional(UserPostsStore, {}),
+    posts: t.optional(PostsStore, {}),
 
     cathedras: t.optional(CathedrasStore, {}),
 
