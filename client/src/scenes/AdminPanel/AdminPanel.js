@@ -7,7 +7,6 @@ import Users from './components/Users/Users';
 import { useStore } from '../../stores/createStore';
 
 const AdminPanel = () => {
-  const store = useStore();
   const [activeItem, setActiveItem] = useState('users');
 
   const handleItemClick = (e, { name }) => setActiveItem(name);
