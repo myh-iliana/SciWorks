@@ -127,6 +127,10 @@ export const Users = {
   deleteById(id) {
     return axios.delete(`/api/users/${id}`);
   },
+
+  downloadUserReport(id) {
+    return axios.get(`/api/users/downloadPosts/${id}`);
+  },
 };
 
 export const Posts = {

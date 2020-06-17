@@ -59,3 +59,15 @@
 .edit_button {
   margin-top: 10px;
 }
+
+.download_button {
+  margin-top: 20px;
+
+  > * {
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}

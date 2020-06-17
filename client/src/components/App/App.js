@@ -13,6 +13,7 @@ export const colors = {
   neutral: 'standard',
 };
 
+// export const apiPath = 'https://ski-works.herokuapp.com/';
 export const apiPath = 'http://localhost:3001/';
 
 const App = () => {

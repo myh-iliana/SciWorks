@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
-import { Button, Image } from 'semantic-ui-react';
+import { Button, Header, Icon, Image, Loader } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 
@@ -35,6 +35,10 @@ const User = ({ user, isViewer }) => {
   };
 
   // ---- avatar upload
+  const handleDownloadWorks = () => {
+    store.viewer.downloadReport.run(store.viewer.user.id);
+    window.open(`${apiPath}${store.viewer.user.username}.docx`);
+  };
   const handleCancelAvatarUpload = () => setImage(null);
   const handleAvatarUpload = () => {
     store.viewer.changeAvatar.run({ avatar: apiPath + image });
@@ -91,6 +95,13 @@ const User = ({ user, isViewer }) => {
                 attached
               />
             </div>
+
+            {store.viewer.user.id && <div className={s.download_button}>
+              <Header as='h5' onClick={handleDownloadWorks}>
+                <Icon name='download' loading={store.viewer.downloadReport.isLoading} />
+                <Header.Content>Download list of works</Header.Content>
+              </Header>
+            </div>}
           </div> }
         </div>
         <div className={s.user__info}>
